@@ -1,0 +1,74 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  language: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  isActive: Boolean!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type AuthResponse {
+  accessToken: String!
+  refreshToken: String
+  user: User!
+}
+
+type ForgotPasswordResponse {
+  email: String
+}
+
+type Query {
+  user(id: ID!): User!
+}
+
+type Mutation {
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  signUp(signUpInput: SignUpInput!): AuthResponse!
+  signIn(signInInput: SignInInput!): AuthResponse!
+  refreshAccessToken: AuthResponse!
+  forgotPassword(forgotPasswordInput: ForgotPasswordInput!): ForgotPasswordResponse!
+  verifyResetPasswordToken(resetPasswordTokenInput: ResetPasswordTokenInput!): ForgotPasswordResponse!
+  resetPassword(resetPasswordInput: ResetPasswordInput!): ForgotPasswordResponse!
+}
+
+input UpdateUserInput {
+  id: ID!
+  firstName: String!
+  lastName: String!
+}
+
+input SignUpInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+input SignInInput {
+  email: String!
+  password: String!
+}
+
+input ForgotPasswordInput {
+  email: String!
+}
+
+input ResetPasswordTokenInput {
+  token: String!
+}
+
+input ResetPasswordInput {
+  token: String!
+  password: String!
+}
