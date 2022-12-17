@@ -16,12 +16,14 @@ import { AllExceptionsFilter } from './common/filters/http-exeptions.filter';
 import { JwtAccessAuthGuard } from './features/auth/guards/jwt-access-auth.guard';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { StudentModule } from './features/student/student.module';
 
 @Module({
   imports: [
     CoreModule,
     UsersModule,
     AuthModule,
+    StudentModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),

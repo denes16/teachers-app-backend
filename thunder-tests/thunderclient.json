@@ -191,5 +191,28 @@
       }
     },
     "tests": []
+  },
+  {
+    "_id": "97b819a7-63d9-4033-a442-208e60d3ada5",
+    "colId": "8eea2ee9-042d-4e7d-83de-9f0c371220c0",
+    "containerId": "88ca4c96-098c-4f99-8e2f-7e7154c65ff1",
+    "name": "Create User",
+    "url": "{{graphqlUrl}}",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2022-12-17T09:28:14.454Z",
+    "modified": "2022-12-17T19:20:58.912Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "graphql",
+      "raw": "",
+      "form": [],
+      "graphql": {
+        "query": "mutation CreateStudent($createStudentInput: CreateStudentInput!) {\n  createStudent(createStudentInput: $createStudentInput) {\n    student {\n      id\n      firstName\n      secondLastName\n      phone\n      address\n      genre\n      birthdate\n      comments\n      tutorFullName\n      extraPhone\n      createdAt\n      updatedAt\n    }\n  }\n}",
+        "variables": "{\n    \"createStudentInput\": {\n        \"firstName\": \"Denes\",\n        \"firstLastName\": \"Mijangos\",\n        \"secondLastName\": \"Ramirez\",\n        \"phone\": \"123456789\",\n        \"address\": \"Av. buena onda\",\n        \"genre\": \"true\",\n        \"birthdate\": \"2003/03/10\",\n        \"comments\": \"He is a developer amazing XD\",\n        \"tutorFullName\": \"Denes Father\",\n        \"extraPhone\": \"987654321\"\n    }\n}"
+      }
+    },
+    "tests": []
   }
 ]

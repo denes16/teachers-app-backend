@@ -1,7 +1,7 @@
 import { PureAbility, AbilityBuilder, subject } from '@casl/ability';
 import { createPrismaAbility, PrismaQuery } from '@casl/prisma';
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { User, Student } from '@prisma/client';
 type Model<T, TName extends string> = T & {
   modelName: string;
 };
@@ -12,6 +12,7 @@ type Subjects<T extends Partial<Record<string, Record<string, unknown>>>> =
     }[keyof T];
 export type AppSubjects = Subjects<{
   User: User;
+  Student: Student;
 }>;
 
 export enum AbilityAction {

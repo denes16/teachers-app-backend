@@ -28,8 +28,29 @@ type ForgotPasswordResponse {
   email: String
 }
 
+type Student {
+  id: ID!
+  firstName: String!
+  firstLastName: String!
+  secondLastName: String!
+  phone: String!
+  address: String!
+  genre: Boolean!
+  birthdate: DateTime!
+  comments: String!
+  tutorFullName: String!
+  extraPhone: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type StudentResponse {
+  student: Student!
+}
+
 type Query {
   user(id: ID!): User!
+  student(id: Int!): Student!
 }
 
 type Mutation {
@@ -40,6 +61,9 @@ type Mutation {
   forgotPassword(forgotPasswordInput: ForgotPasswordInput!): ForgotPasswordResponse!
   verifyResetPasswordToken(resetPasswordTokenInput: ResetPasswordTokenInput!): ForgotPasswordResponse!
   resetPassword(resetPasswordInput: ResetPasswordInput!): ForgotPasswordResponse!
+  createStudent(createStudentInput: CreateStudentInput!): StudentResponse!
+  updateStudent(updateStudentInput: UpdateStudentInput!): StudentResponse!
+  removeStudent(id: Int!): StudentResponse!
 }
 
 input UpdateUserInput {
@@ -71,4 +95,31 @@ input ResetPasswordTokenInput {
 input ResetPasswordInput {
   token: String!
   password: String!
+}
+
+input CreateStudentInput {
+  firstName: String!
+  firstLastName: String!
+  secondLastName: String!
+  phone: String!
+  address: String!
+  genre: Boolean!
+  birthdate: DateTime!
+  comments: String!
+  tutorFullName: String!
+  extraPhone: String!
+}
+
+input UpdateStudentInput {
+  firstName: String
+  firstLastName: String
+  secondLastName: String
+  phone: String
+  address: String
+  genre: Boolean
+  birthdate: DateTime
+  comments: String
+  tutorFullName: String
+  extraPhone: String
+  id: Int!
 }
