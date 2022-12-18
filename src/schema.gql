@@ -44,13 +44,10 @@ type Student {
   updatedAt: DateTime!
 }
 
-type StudentResponse {
-  student: Student!
-}
-
 type Query {
   user(id: ID!): User!
-  student(id: Int!): Student!
+  students: [Student!]!
+  student(id: ID!): Student!
 }
 
 type Mutation {
@@ -61,9 +58,9 @@ type Mutation {
   forgotPassword(forgotPasswordInput: ForgotPasswordInput!): ForgotPasswordResponse!
   verifyResetPasswordToken(resetPasswordTokenInput: ResetPasswordTokenInput!): ForgotPasswordResponse!
   resetPassword(resetPasswordInput: ResetPasswordInput!): ForgotPasswordResponse!
-  createStudent(createStudentInput: CreateStudentInput!): StudentResponse!
-  updateStudent(updateStudentInput: UpdateStudentInput!): StudentResponse!
-  removeStudent(id: Int!): StudentResponse!
+  createStudent(createStudentInput: CreateStudentInput!): Student!
+  updateStudent(id: ID!, updateStudentInput: UpdateStudentInput!): Student!
+  removeStudent(id: ID!): Student!
 }
 
 input UpdateUserInput {
@@ -121,5 +118,4 @@ input UpdateStudentInput {
   comments: String
   tutorFullName: String
   extraPhone: String
-  id: Int!
 }

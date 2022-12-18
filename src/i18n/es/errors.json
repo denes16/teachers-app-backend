@@ -2,5 +2,6 @@
   "emailAlreadyExists": "Correo electronico ya existe",
   "badCredentials": "Correo electronico o contraseña incorrectos",
   "userNotFound": "Usuario no encontrado",
-  "internalServerError": "Error interno del servidor"
+  "internalServerError": "Error interno del servidor",
+  "studentNotFound": "Estudiante no encontrado"
 }

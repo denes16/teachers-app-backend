@@ -196,12 +196,12 @@
     "_id": "97b819a7-63d9-4033-a442-208e60d3ada5",
     "colId": "8eea2ee9-042d-4e7d-83de-9f0c371220c0",
     "containerId": "88ca4c96-098c-4f99-8e2f-7e7154c65ff1",
-    "name": "Create User",
+    "name": "Create",
     "url": "{{graphqlUrl}}",
     "method": "POST",
-    "sortNum": 90000,
+    "sortNum": 115000,
     "created": "2022-12-17T09:28:14.454Z",
-    "modified": "2022-12-17T19:20:58.912Z",
+    "modified": "2022-12-18T01:17:06.365Z",
     "headers": [],
     "params": [],
     "body": {
@@ -211,6 +211,97 @@
       "graphql": {
         "query": "mutation CreateStudent($createStudentInput: CreateStudentInput!) {\n  createStudent(createStudentInput: $createStudentInput) {\n    student {\n      id\n      firstName\n      secondLastName\n      phone\n      address\n      genre\n      birthdate\n      comments\n      tutorFullName\n      extraPhone\n      createdAt\n      updatedAt\n    }\n  }\n}",
         "variables": "{\n    \"createStudentInput\": {\n        \"firstName\": \"Denes\",\n        \"firstLastName\": \"Mijangos\",\n        \"secondLastName\": \"Ramirez\",\n        \"phone\": \"123456789\",\n        \"address\": \"Av. buena onda\",\n        \"genre\": \"true\",\n        \"birthdate\": \"2003/03/10\",\n        \"comments\": \"He is a developer amazing XD\",\n        \"tutorFullName\": \"Denes Father\",\n        \"extraPhone\": \"987654321\"\n    }\n}"
+      }
+    },
+    "tests": []
+  },
+  {
+    "_id": "b759d4ef-e621-4a91-9d6a-3f880f3f8fc3",
+    "colId": "8eea2ee9-042d-4e7d-83de-9f0c371220c0",
+    "containerId": "88ca4c96-098c-4f99-8e2f-7e7154c65ff1",
+    "name": "Get Many",
+    "url": "{{graphqlUrl}}",
+    "method": "POST",
+    "sortNum": 100000,
+    "created": "2022-12-18T01:13:19.633Z",
+    "modified": "2022-12-18T01:14:08.112Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "graphql",
+      "raw": "",
+      "form": [],
+      "graphql": {
+        "query": "query Students {\r\n  students {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthdate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}"
+      }
+    },
+    "tests": []
+  },
+  {
+    "_id": "0fd75778-3f62-4097-ad42-d654b887fc3b",
+    "colId": "8eea2ee9-042d-4e7d-83de-9f0c371220c0",
+    "containerId": "88ca4c96-098c-4f99-8e2f-7e7154c65ff1",
+    "name": "Get One",
+    "url": "{{graphqlUrl}}",
+    "method": "POST",
+    "sortNum": 110000,
+    "created": "2022-12-18T01:14:55.538Z",
+    "modified": "2022-12-18T01:15:37.851Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "graphql",
+      "raw": "",
+      "form": [],
+      "graphql": {
+        "query": "query Student($studentId: ID!) {\r\n  student(id: $studentId) {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthdate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}",
+        "variables": "{\r\n  \"studentId\": \"639e1ef572bb9d60d9d54a8d\"\r\n}"
+      }
+    },
+    "tests": []
+  },
+  {
+    "_id": "a9999242-b4ae-42cd-8732-d472226c3401",
+    "colId": "8eea2ee9-042d-4e7d-83de-9f0c371220c0",
+    "containerId": "88ca4c96-098c-4f99-8e2f-7e7154c65ff1",
+    "name": "Update",
+    "url": "{{graphqlUrl}}",
+    "method": "POST",
+    "sortNum": 120000,
+    "created": "2022-12-18T01:15:50.481Z",
+    "modified": "2022-12-18T01:16:32.483Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "graphql",
+      "raw": "",
+      "form": [],
+      "graphql": {
+        "query": "mutation UpdateStudent($updateStudentId: ID!, $updateStudentInput: UpdateStudentInput!) {\r\n  updateStudent(id: $updateStudentId, updateStudentInput: $updateStudentInput) {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthdate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}",
+        "variables": "{  \r\n  \"updateStudentId\": \"639e1ef572bb9d60d9d54a8d\",\r\n  \"updateStudentInput\": {\r\n    \"firstName\": \"Denes updated 1\"\r\n  }\r\n}"
+      }
+    },
+    "tests": []
+  },
+  {
+    "_id": "35af5281-b285-4951-b9af-2d39b12022fa",
+    "colId": "8eea2ee9-042d-4e7d-83de-9f0c371220c0",
+    "containerId": "88ca4c96-098c-4f99-8e2f-7e7154c65ff1",
+    "name": "Delete",
+    "url": "{{graphqlUrl}}",
+    "method": "POST",
+    "sortNum": 130000,
+    "created": "2022-12-18T01:16:45.842Z",
+    "modified": "2022-12-18T01:17:20.172Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "graphql",
+      "raw": "",
+      "form": [],
+      "graphql": {
+        "query": "mutation RemoveStudent($removeStudentId: ID!) {\r\n  removeStudent(id: $removeStudentId) {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthdate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}",
+        "variables": "{\r\n  \"removeStudentId\": \"639e680dfd9a71e9d375b133\"\r\n}"
       }
     },
     "tests": []
