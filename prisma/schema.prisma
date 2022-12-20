@@ -41,6 +41,24 @@ model User {
   authProviderId String?
 }
 
+model Student {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  firstLastName String
+  secondLastName  String
+  phone String
+  address String
+  genre Boolean
+  birthdate DateTime
+  comments String
+  tutorFullName String
+  extraPhone String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  /// @HideField({ output: true, input: true })
+  modelName String   @default("Student")
+}
+
 enum AuthProvider {
   LOCAL
   GOOGLE
