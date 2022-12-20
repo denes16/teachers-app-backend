@@ -224,7 +224,7 @@
     "method": "POST",
     "sortNum": 100000,
     "created": "2022-12-18T01:13:19.633Z",
-    "modified": "2022-12-18T01:14:08.112Z",
+    "modified": "2022-12-20T11:04:11.650Z",
     "headers": [],
     "params": [],
     "body": {
@@ -232,7 +232,7 @@
       "raw": "",
       "form": [],
       "graphql": {
-        "query": "query Students {\r\n  students {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthdate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}"
+        "query": "query Students {\n  students {\n    id\n    firstName\n    firstLastName\n    secondLastName\n    phone\n    address\n    genre\n    birthdate\n    comments\n    tutorFullName\n    extraPhone\n    createdAt\n    updatedAt\n  }\n}"
       }
     },
     "tests": []
