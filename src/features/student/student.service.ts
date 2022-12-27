@@ -1,3 +1,4 @@
+
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../core/services/prisma/prisma.service';
 import { Student } from '../../@generated/student/student.model';
@@ -14,6 +15,7 @@ export class StudentService {
   async create(createOneStudentArgs: CreateOneStudentArgs): Promise<Student> {
     return await this.prismaService.student.create(createOneStudentArgs);
   }
+
 
   async getOwnerOfStudent(student: Student): Promise<User> {
     return await this.prismaService.student

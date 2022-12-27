@@ -31,6 +31,7 @@ export class StudentResolver {
     options: FindManyStudentArgs,
   ) {
     return this.studentService.getMany(options);
+
   }
 
   @Query(() => Student, { name: 'student' })
