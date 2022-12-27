@@ -220,20 +220,44 @@
     "colId": "8eea2ee9-042d-4e7d-83de-9f0c371220c0",
     "containerId": "88ca4c96-098c-4f99-8e2f-7e7154c65ff1",
     "name": "Get Many",
-    "url": "{{graphqlUrl}}",
+    "url": "{{graphqlUrl}}?accessToken={{accessToken}}&refreshToken={{refreshToken}}",
     "method": "POST",
     "sortNum": 100000,
     "created": "2022-12-18T01:13:19.633Z",
+<<<<<<< Updated upstream
     "modified": "2022-12-20T11:04:11.650Z",
+=======
+    "modified": "2022-12-20T03:37:02.965Z",
+>>>>>>> Stashed changes
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "accessToken",
+        "value": "{{accessToken}}",
+        "isPath": false
+      },
+      {
+        "name": "refreshToken",
+        "value": "{{refreshToken}}",
+        "isPath": false
+      }
+    ],
     "body": {
       "type": "graphql",
       "raw": "",
       "form": [],
       "graphql": {
+<<<<<<< Updated upstream
         "query": "query Students {\n  students {\n    id\n    firstName\n    firstLastName\n    secondLastName\n    phone\n    address\n    genre\n    birthdate\n    comments\n    tutorFullName\n    extraPhone\n    createdAt\n    updatedAt\n  }\n}"
+=======
+        "query": "query Students($take: Int, $skip: Int) {\n  students(take: $take, skip: $skip) {\n    firstName\n    firstLastName\n    secondLastName\n    phone\n    address\n    genre\n    birthdate\n    comments\n    tutorFullName\n    extraPhone\n    createdAt\n    updatedAt\n  }\n}",
+        "variables": "{\n  \"skip\": 0,\n  \"take\": 3\n}"
+>>>>>>> Stashed changes
       }
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMzY1M2VkYzhjMWUwOTU0MTU4NzdkZSIsImZpcnN0TmFtZSI6IkRlbmVzIiwibGFzdE5hbWUiOiJNaWphbmdvcyIsImVtYWlsIjoiZW1haWwxQGVtYWlsLmNvbSIsImxhbmd1YWdlIjoiZW4iLCJyZXNldFBhc3N3b3JkVG9rZW4iOm51bGwsInJlc2V0UGFzc3dvcmRUb2tlbkV4cGlyZXMiOiIyMDIyLTEyLTA2VDA2OjIzOjQ4Ljg0NVoiLCJjcmVhdGVkQXQiOiIyMDIyLTA5LTMwVDAyOjI2OjUzLjQ3NFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTEyLTA2VDA1OjMwOjU3LjA5NVoiLCJpc0FjdGl2ZSI6dHJ1ZSwibW9kZWxOYW1lIjoiVXNlciIsImF1dGhQcm92aWRlciI6IkxPQ0FMIiwiYXV0aFByb3ZpZGVySWQiOm51bGwsImlhdCI6MTY3MTUwNTMyMywiZXhwIjoxNjcxNTA2MjIzfQ.ueQLqmY_1ZjFpXLYRNPdEXC9AkCO3j46i9HcBajAkvA"
     },
     "tests": []
   },

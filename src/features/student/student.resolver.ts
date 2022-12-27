@@ -4,6 +4,11 @@ import { CreateStudentInput } from './dto/inputs/create-student.input';
 import { UpdateStudentInput } from './dto/inputs/update-student.input';
 import { Student } from '../../@generated/student/student.model';
 import { AuthenticationNotRequired } from '../auth/decorators/authentication-not-required';
+import { FindManyStudentArgs } from '../../@generated/student/find-many-student.args';
+import { NeedsPermission } from '../auth/decorators/needs-permissions.decorator';
+import { AbilityAction } from '../auth/casl-ability-factory.service';
+import { GetCurrentUser } from '../auth/decorators/get-current-user.decorator';
+import { CurrentUser } from '../auth/types/current-user.type';
 
 @AuthenticationNotRequired()
 @Resolver(() => Student)
@@ -17,9 +22,13 @@ export class StudentResolver {
     return this.studentService.create(createStudentInput);
   }
 
+
   @Query(() => [Student], { name: 'students' })
-  findAll() {
-    return this.studentService.findAll();
+  findAll(
+    @Args() findManyStudentArgs: FindManyStudentArgs,
+    @GetCurrentUser() currentUser: CurrentUser,
+  ) {
+    return this.studentService.findAll(findManyStudentArgs, currentUser);
   }
 
   @Query(() => Student, { name: 'student' })
