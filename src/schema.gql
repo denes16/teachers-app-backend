@@ -32,22 +32,223 @@ type Student {
   id: ID!
   firstName: String!
   firstLastName: String!
-  secondLastName: String!
-  phone: String!
-  address: String!
-  genre: Boolean!
-  birthdate: DateTime!
-  comments: String!
-  tutorFullName: String!
-  extraPhone: String!
+  secondLastName: String
+  phone: String
+  address: String
+  genre: Genre
+  birthDate: DateTime
+  comments: String
+  tutorFullName: String
+  extraPhone: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
 
+enum Genre {
+  MALE
+  FEMALE
+}
+
+type GetManyStudentsResponse {
+  totalRecords: Int!
+  currentPage: Int!
+  totalPages: Int!
+  pageSize: Int!
+  items: [Student!]!
+}
+
 type Query {
   user(id: ID!): User!
-  students: [Student!]!
+  students(where: StudentWhereInput, orderBy: [StudentOrderByWithRelationInput!], cursor: StudentWhereUniqueInput, take: Int, skip: Int, distinct: [StudentScalarFieldEnum!]): GetManyStudentsResponse!
   student(id: ID!): Student!
+}
+
+input StudentWhereInput {
+  AND: [StudentWhereInput!]
+  OR: [StudentWhereInput!]
+  NOT: [StudentWhereInput!]
+  id: StringFilter
+  firstName: StringFilter
+  firstLastName: StringFilter
+  secondLastName: StringNullableFilter
+  phone: StringNullableFilter
+  address: StringNullableFilter
+  genre: EnumGenreNullableFilter
+  birthDate: DateTimeNullableFilter
+  comments: StringNullableFilter
+  tutorFullName: StringNullableFilter
+  extraPhone: StringNullableFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+  isSet: Boolean
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+  isSet: Boolean
+}
+
+input EnumGenreNullableFilter {
+  equals: Genre
+  in: [Genre!]
+  notIn: [Genre!]
+  not: NestedEnumGenreNullableFilter
+  isSet: Boolean
+}
+
+input NestedEnumGenreNullableFilter {
+  equals: Genre
+  in: [Genre!]
+  notIn: [Genre!]
+  not: NestedEnumGenreNullableFilter
+  isSet: Boolean
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableFilter
+  isSet: Boolean
+}
+
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableFilter
+  isSet: Boolean
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input StudentOrderByWithRelationInput {
+  id: SortOrder
+  firstName: SortOrder
+  firstLastName: SortOrder
+  secondLastName: SortOrder
+  phone: SortOrder
+  address: SortOrder
+  genre: SortOrder
+  birthDate: SortOrder
+  comments: SortOrder
+  tutorFullName: SortOrder
+  extraPhone: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input StudentWhereUniqueInput {
+  id: String
+}
+
+enum StudentScalarFieldEnum {
+  id
+  firstName
+  firstLastName
+  secondLastName
+  phone
+  address
+  genre
+  birthDate
+  comments
+  tutorFullName
+  extraPhone
+  createdAt
+  updatedAt
+  modelName
 }
 
 type Mutation {
@@ -58,8 +259,8 @@ type Mutation {
   forgotPassword(forgotPasswordInput: ForgotPasswordInput!): ForgotPasswordResponse!
   verifyResetPasswordToken(resetPasswordTokenInput: ResetPasswordTokenInput!): ForgotPasswordResponse!
   resetPassword(resetPasswordInput: ResetPasswordInput!): ForgotPasswordResponse!
-  createStudent(createStudentInput: CreateStudentInput!): Student!
-  updateStudent(id: ID!, updateStudentInput: UpdateStudentInput!): Student!
+  createStudent(createStudentInput: StudentCreateInput!): Student!
+  updateStudent(id: ID!, updateStudentInput: StudentUpdateInput!): Student!
   removeStudent(id: ID!): Student!
 }
 
@@ -94,28 +295,56 @@ input ResetPasswordInput {
   password: String!
 }
 
-input CreateStudentInput {
+input StudentCreateInput {
+  id: String
   firstName: String!
   firstLastName: String!
-  secondLastName: String!
-  phone: String!
-  address: String!
-  genre: Boolean!
-  birthdate: DateTime!
-  comments: String!
-  tutorFullName: String!
-  extraPhone: String!
-}
-
-input UpdateStudentInput {
-  firstName: String
-  firstLastName: String
   secondLastName: String
   phone: String
   address: String
-  genre: Boolean
-  birthdate: DateTime
+  genre: Genre
+  birthDate: DateTime
   comments: String
   tutorFullName: String
   extraPhone: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input StudentUpdateInput {
+  firstName: StringFieldUpdateOperationsInput
+  firstLastName: StringFieldUpdateOperationsInput
+  secondLastName: NullableStringFieldUpdateOperationsInput
+  phone: NullableStringFieldUpdateOperationsInput
+  address: NullableStringFieldUpdateOperationsInput
+  genre: NullableEnumGenreFieldUpdateOperationsInput
+  birthDate: NullableDateTimeFieldUpdateOperationsInput
+  comments: NullableStringFieldUpdateOperationsInput
+  tutorFullName: NullableStringFieldUpdateOperationsInput
+  extraPhone: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+  unset: Boolean
+}
+
+input NullableEnumGenreFieldUpdateOperationsInput {
+  set: Genre
+  unset: Boolean
+}
+
+input NullableDateTimeFieldUpdateOperationsInput {
+  set: DateTime
+  unset: Boolean
+}
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
 }

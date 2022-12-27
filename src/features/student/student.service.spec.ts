@@ -37,7 +37,7 @@ describe('StudentService', () => {
       prismaService.student.findMany = jest
         .fn()
         .mockResolvedValue([StudentMock]);
-      const result = await service.findAll();
+      const result = await service.getMany();
       expect(result).toEqual([StudentMock]);
     });
   });

@@ -2,11 +2,12 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { HideField } from '@nestjs/graphql';
+import { StudentOrderByRelationAggregateInput } from '../student/student-order-by-relation-aggregate.input';
 
 @InputType()
 export class UserOrderByWithRelationInput {
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -21,13 +22,13 @@ export class UserOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     language?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     password?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     resetPasswordToken?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     resetPasswordTokenExpires?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -47,4 +48,7 @@ export class UserOrderByWithRelationInput {
 
     @HideField()
     authProviderId?: keyof typeof SortOrder;
+
+    @HideField()
+    students?: StudentOrderByRelationAggregateInput;
 }

@@ -5,7 +5,7 @@ import { HideField } from '@nestjs/graphql';
 @InputType()
 export class UserCountAggregateInput {
 
-    @Field(() => Boolean, {nullable:true})
+    @HideField()
     id?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -20,13 +20,13 @@ export class UserCountAggregateInput {
     @Field(() => Boolean, {nullable:true})
     language?: true;
 
-    @Field(() => Boolean, {nullable:true})
+    @HideField()
     password?: true;
 
-    @Field(() => Boolean, {nullable:true})
+    @HideField()
     resetPasswordToken?: true;
 
-    @Field(() => Boolean, {nullable:true})
+    @HideField()
     resetPasswordTokenExpires?: true;
 
     @Field(() => Boolean, {nullable:true})

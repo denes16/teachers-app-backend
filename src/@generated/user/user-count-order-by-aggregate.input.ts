@@ -6,7 +6,7 @@ import { HideField } from '@nestjs/graphql';
 @InputType()
 export class UserCountOrderByAggregateInput {
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -21,13 +21,13 @@ export class UserCountOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     language?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     password?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     resetPasswordToken?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     resetPasswordTokenExpires?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

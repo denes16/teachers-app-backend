@@ -9,7 +9,7 @@ import { UserMinOrderByAggregateInput } from './user-min-order-by-aggregate.inpu
 @InputType()
 export class UserOrderByWithAggregationInput {
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -24,13 +24,13 @@ export class UserOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     language?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     password?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     resetPasswordToken?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
+    @HideField()
     resetPasswordTokenExpires?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

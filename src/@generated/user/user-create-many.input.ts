@@ -6,7 +6,7 @@ import { AuthProvider } from '../prisma/auth-provider.enum';
 @InputType()
 export class UserCreateManyInput {
 
-    @Field(() => String, {nullable:true})
+    @HideField()
     id?: string;
 
     @Field(() => String, {nullable:false})
@@ -21,13 +21,13 @@ export class UserCreateManyInput {
     @Field(() => String, {nullable:true})
     language?: string;
 
-    @Field(() => String, {nullable:true})
+    @HideField()
     password?: string;
 
-    @Field(() => String, {nullable:true})
+    @HideField()
     resetPasswordToken?: string;
 
-    @Field(() => Date, {nullable:true})
+    @HideField()
     resetPasswordTokenExpires?: Date | string;
 
     @Field(() => Date, {nullable:true})

@@ -1,52 +1,51 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
-import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { HideField } from '@nestjs/graphql';
-import { EnumAuthProviderFieldUpdateOperationsInput } from '../prisma/enum-auth-provider-field-update-operations.input';
+import { AuthProvider } from '../prisma/auth-provider.enum';
+import { StudentUncheckedUpdateManyWithoutUserNestedInput } from '../student/student-unchecked-update-many-without-user-nested.input';
 
 @InputType()
 export class UserUncheckedUpdateInput {
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    firstName?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    firstName?: string;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    lastName?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    lastName?: string;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    email?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    email?: string;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    language?: StringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    password?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    resetPasswordTokenExpires?: NullableDateTimeFieldUpdateOperationsInput;
-
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    createdAt?: DateTimeFieldUpdateOperationsInput;
-
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    updatedAt?: DateTimeFieldUpdateOperationsInput;
-
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    isActive?: BoolFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    language?: string;
 
     @HideField()
-    modelName?: StringFieldUpdateOperationsInput;
+    password?: string;
 
     @HideField()
-    authProvider?: EnumAuthProviderFieldUpdateOperationsInput;
+    resetPasswordToken?: string;
 
     @HideField()
-    authProviderId?: NullableStringFieldUpdateOperationsInput;
+    resetPasswordTokenExpires?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+
+    @Field(() => Boolean, {nullable:true})
+    isActive?: boolean;
+
+    @HideField()
+    modelName?: string;
+
+    @HideField()
+    authProvider?: keyof typeof AuthProvider;
+
+    @HideField()
+    authProviderId?: string;
+
+    @HideField()
+    students?: StudentUncheckedUpdateManyWithoutUserNestedInput;
 }

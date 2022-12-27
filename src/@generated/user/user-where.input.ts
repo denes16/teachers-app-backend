@@ -1,12 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
+import { HideField } from '@nestjs/graphql';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { BoolFilter } from '../prisma/bool-filter.input';
-import { HideField } from '@nestjs/graphql';
 import { EnumAuthProviderFilter } from '../prisma/enum-auth-provider-filter.input';
+import { StudentListRelationFilter } from '../student/student-list-relation-filter.input';
 
 @InputType()
 export class UserWhereInput {
@@ -20,7 +21,7 @@ export class UserWhereInput {
     @Field(() => [UserWhereInput], {nullable:true})
     NOT?: Array<UserWhereInput>;
 
-    @Field(() => StringFilter, {nullable:true})
+    @HideField()
     id?: StringFilter;
 
     @Field(() => StringFilter, {nullable:true})
@@ -35,13 +36,13 @@ export class UserWhereInput {
     @Field(() => StringFilter, {nullable:true})
     language?: StringFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
+    @HideField()
     password?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
+    @HideField()
     resetPasswordToken?: StringNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
+    @HideField()
     resetPasswordTokenExpires?: DateTimeNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
@@ -61,4 +62,7 @@ export class UserWhereInput {
 
     @HideField()
     authProviderId?: StringNullableFilter;
+
+    @HideField()
+    students?: StudentListRelationFilter;
 }

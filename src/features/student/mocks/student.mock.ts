@@ -1,4 +1,5 @@
 import { Student } from '../../../@generated/student/student.model';
+import { Genre } from '../../../@generated/prisma/genre.enum';
 
 export const StudentMock: Student = {
   id: '1',
@@ -7,8 +8,8 @@ export const StudentMock: Student = {
   secondLastName: 'Doe',
   phone: '1234567890',
   address: '1234 Main St',
-  genre: true,
-  birthdate: new Date(),
+  genre: Genre.MALE,
+  birthDate: new Date(),
   comments: 'This is a comment',
   tutorFullName: 'John Doe',
   extraPhone: '1234567890',

@@ -2,11 +2,12 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { AuthProvider } from '../prisma/auth-provider.enum';
+import { StudentCreateNestedManyWithoutUserInput } from '../student/student-create-nested-many-without-user.input';
 
 @InputType()
 export class UserCreateInput {
 
-    @Field(() => String, {nullable:true})
+    @HideField()
     id?: string;
 
     @Field(() => String, {nullable:false})
@@ -21,13 +22,13 @@ export class UserCreateInput {
     @Field(() => String, {nullable:true})
     language?: string;
 
-    @Field(() => String, {nullable:true})
+    @HideField()
     password?: string;
 
-    @Field(() => String, {nullable:true})
+    @HideField()
     resetPasswordToken?: string;
 
-    @Field(() => Date, {nullable:true})
+    @HideField()
     resetPasswordTokenExpires?: Date | string;
 
     @Field(() => Date, {nullable:true})
@@ -47,4 +48,7 @@ export class UserCreateInput {
 
     @HideField()
     authProviderId?: string;
+
+    @HideField()
+    students?: StudentCreateNestedManyWithoutUserInput;
 }

@@ -6,8 +6,10 @@ generator client {
 }
 
 generator nestgraphql {
-  provider = "node node_modules/prisma-nestjs-graphql"
-  output   = "../src/@generated"
+  provider                    = "node node_modules/prisma-nestjs-graphql"
+  output                      = "../src/@generated"
+  useInputType_CreateOne_data = "matcher:*UncheckedCreateInput"
+  noAtomicOperations          = true
 }
 
 datasource db {
@@ -16,50 +18,64 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  firstName String
-  lastName  String
-  email     String   @unique
-  language  String   @default("en")
-  /// @HideField()
-  password  String?
-  /// @HideField()
-  resetPasswordToken String? @unique
-  /// @HideField()
-  resetPasswordTokenExpires DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  isActive  Boolean  @default(true)
+  /// @HideField({ input: true })
+  id                        String    @id @default(auto()) @map("_id") @db.ObjectId
+  firstName                 String
+  lastName                  String
+  email                     String    @unique
+  language                  String    @default("en")
   /// @HideField({ output: true, input: true })
-  modelName String   @default("User")
-
+  password                  String?
+  /// @HideField({ output: true, input: true })
+  resetPasswordToken        String?   @unique
+  /// @HideField({ output: true, input: true })
+  resetPasswordTokenExpires DateTime?
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
+  isActive                  Boolean   @default(true)
+  /// @HideField({ output: true, input: true })
+  modelName                 String    @default("User")
 
   /// @HideField({ output: true, input: true })
   authProvider AuthProvider @default(LOCAL)
 
   /// @HideField({ output: true, input: true })
   authProviderId String?
-}
-
-model Student {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  firstName String
-  firstLastName String
-  secondLastName  String
-  phone String
-  address String
-  genre Boolean
-  birthdate DateTime
-  comments String
-  tutorFullName String
-  extraPhone String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   /// @HideField({ output: true, input: true })
-  modelName String   @default("Student")
+  students       Student[]
 }
 
 enum AuthProvider {
   LOCAL
   GOOGLE
+}
+
+enum Genre {
+  MALE
+  FEMALE
+}
+
+model Student {
+  /// @HideField({ input: true })
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  firstName      String
+  firstLastName  String
+  secondLastName String?
+  phone          String?
+  address        String?
+  genre          Genre?
+  birthDate      DateTime?
+  comments       String?
+  tutorFullName  String?
+  extraPhone     String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  /// @HideField({ match: '*UpdateInput' })
+  user   User   @relation(fields: [userId], references: [id])
+  /// @HideField({ match: '*UpdateInput' })
+  userId String @db.ObjectId
+
+  /// @HideField({ output: true, input: true })
+  modelName String @default("Student")
 }
