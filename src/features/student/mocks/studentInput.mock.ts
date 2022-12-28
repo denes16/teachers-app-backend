@@ -6,6 +6,7 @@ export const StudentInputMock: Student = {
   firstName: 'Ruby',
   firstLastName: 'Mercedes',
   secondLastName: 'Flores',
+  userId: '2',
   phone: '1234567890',
   address: '1234 Av',
   genre: Genre.MALE,

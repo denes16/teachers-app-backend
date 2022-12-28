@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type UserCount {
+  students: Int!
+}
+
 type User {
   id: ID!
   firstName: String!
@@ -11,6 +15,7 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   isActive: Boolean!
+  _count: UserCount!
 }
 
 """
@@ -42,6 +47,8 @@ type Student {
   extraPhone: String
   createdAt: DateTime!
   updatedAt: DateTime!
+  user: User!
+  userId: String!
 }
 
 enum Genre {
@@ -80,6 +87,8 @@ input StudentWhereInput {
   extraPhone: StringNullableFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
+  user: UserRelationFilter
+  userId: StringFilter
 }
 
 input StringFilter {
@@ -209,6 +218,34 @@ input NestedDateTimeFilter {
   not: NestedDateTimeFilter
 }
 
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  firstName: StringFilter
+  lastName: StringFilter
+  email: StringFilter
+  language: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  isActive: BoolFilter
+}
+
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
 input StudentOrderByWithRelationInput {
   id: SortOrder
   firstName: SortOrder
@@ -223,11 +260,23 @@ input StudentOrderByWithRelationInput {
   extraPhone: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
 }
 
 enum SortOrder {
   asc
   desc
+}
+
+input UserOrderByWithRelationInput {
+  firstName: SortOrder
+  lastName: SortOrder
+  email: SortOrder
+  language: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  isActive: SortOrder
 }
 
 input StudentWhereUniqueInput {
@@ -248,6 +297,7 @@ enum StudentScalarFieldEnum {
   extraPhone
   createdAt
   updatedAt
+  userId
   modelName
 }
 
@@ -259,7 +309,7 @@ type Mutation {
   forgotPassword(forgotPasswordInput: ForgotPasswordInput!): ForgotPasswordResponse!
   verifyResetPasswordToken(resetPasswordTokenInput: ResetPasswordTokenInput!): ForgotPasswordResponse!
   resetPassword(resetPasswordInput: ResetPasswordInput!): ForgotPasswordResponse!
-  createStudent(createStudentInput: StudentCreateInput!): Student!
+  createStudent(data: StudentUncheckedCreateInput!): Student!
   updateStudent(id: ID!, updateStudentInput: StudentUpdateInput!): Student!
   removeStudent(id: ID!): Student!
 }
@@ -295,8 +345,7 @@ input ResetPasswordInput {
   password: String!
 }
 
-input StudentCreateInput {
-  id: String
+input StudentUncheckedCreateInput {
   firstName: String!
   firstLastName: String!
   secondLastName: String
@@ -309,42 +358,20 @@ input StudentCreateInput {
   extraPhone: String
   createdAt: DateTime
   updatedAt: DateTime
+  userId: String!
 }
 
 input StudentUpdateInput {
-  firstName: StringFieldUpdateOperationsInput
-  firstLastName: StringFieldUpdateOperationsInput
-  secondLastName: NullableStringFieldUpdateOperationsInput
-  phone: NullableStringFieldUpdateOperationsInput
-  address: NullableStringFieldUpdateOperationsInput
-  genre: NullableEnumGenreFieldUpdateOperationsInput
-  birthDate: NullableDateTimeFieldUpdateOperationsInput
-  comments: NullableStringFieldUpdateOperationsInput
-  tutorFullName: NullableStringFieldUpdateOperationsInput
-  extraPhone: NullableStringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input StringFieldUpdateOperationsInput {
-  set: String
-}
-
-input NullableStringFieldUpdateOperationsInput {
-  set: String
-  unset: Boolean
-}
-
-input NullableEnumGenreFieldUpdateOperationsInput {
-  set: Genre
-  unset: Boolean
-}
-
-input NullableDateTimeFieldUpdateOperationsInput {
-  set: DateTime
-  unset: Boolean
-}
-
-input DateTimeFieldUpdateOperationsInput {
-  set: DateTime
+  firstName: String
+  firstLastName: String
+  secondLastName: String
+  phone: String
+  address: String
+  genre: Genre
+  birthDate: DateTime
+  comments: String
+  tutorFullName: String
+  extraPhone: String
+  createdAt: DateTime
+  updatedAt: DateTime
 }
