@@ -31,7 +31,7 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-10-05T02:49:23.594Z",
-    "modified": "2022-12-06T05:31:36.631Z",
+    "modified": "2022-12-29T03:32:44.210Z",
     "headers": [],
     "params": [],
     "body": {
@@ -224,7 +224,7 @@
     "method": "POST",
     "sortNum": 100000,
     "created": "2022-12-18T01:13:19.633Z",
-    "modified": "2022-12-27T18:19:52.285Z",
+    "modified": "2022-12-29T04:20:25.720Z",
     "headers": [],
     "params": [],
     "body": {
@@ -232,7 +232,7 @@
       "raw": "",
       "form": [],
       "graphql": {
-        "query": "query Students($take: Int, $skip: Int) {\n\nstudents(take: $take, skip: $skip, ) {\n    totalRecords\n    currentPage\n    totalPages\n    pageSize\n    items {\n      id\n      firstName\n      firstLastName\n      secondLastName\n      phone\n      address\n      genre\n      birthdate\n      comments\n      tutorFullName\n      extraPhone\n      createdAt\n      updatedAt\n    }\n  }\n}",
+        "query": "query Students($take: Int, $skip: Int) {\n\nstudents(take: $take, skip: $skip, ) {\n    totalRecords\n    currentPage\n    totalPages\n    pageSize\n    items {\n      id\n      firstName\n      firstLastName\n      secondLastName\n      phone\n      address\n      genre\n      birthDate\n      comments\n      tutorFullName\n      extraPhone\n      createdAt\n      updatedAt\n    }\n  }\n}",
         "variables": "{  \"take\": 1,\n  \"skip\": 1,\n  \"hey\":1\n  \n}"
       }
     },

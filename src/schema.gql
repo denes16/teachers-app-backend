@@ -2,10 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type UserCount {
-  students: Int!
-}
-
 type User {
   id: ID!
   firstName: String!
@@ -15,7 +11,6 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   isActive: Boolean!
-  _count: UserCount!
 }
 
 """
@@ -65,6 +60,7 @@ type GetManyStudentsResponse {
 }
 
 type Query {
+  me: User!
   user(id: ID!): User!
   students(where: StudentWhereInput, orderBy: [StudentOrderByWithRelationInput!], cursor: StudentWhereUniqueInput, take: Int, skip: Int, distinct: [StudentScalarFieldEnum!]): GetManyStudentsResponse!
   student(id: ID!): Student!
