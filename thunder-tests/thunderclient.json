@@ -224,7 +224,7 @@
     "method": "POST",
     "sortNum": 100000,
     "created": "2022-12-18T01:13:19.633Z",
-    "modified": "2022-12-20T11:04:11.650Z",
+    "modified": "2022-12-31T15:36:54.844Z",
     "headers": [],
     "params": [
       {
@@ -243,13 +243,13 @@
       "raw": "",
       "form": [],
       "graphql": {
-        "query": "query Students($take: Int, $skip: Int) {\n  students(take: $take, skip: $skip) {\n    firstName\n    firstLastName\n    secondLastName\n    phone\n    address\n    genre\n    birthdate\n    comments\n    tutorFullName\n    extraPhone\n    createdAt\n    updatedAt\n  }\n}",
-        "variables": "{\n  \"skip\": 0,\n  \"take\": 3\n}"
+        "query": "query Students($take: Int, $skip: Int) {\n  students(take: $take, skip: $skip) {\n    totalRecords\n    currentPage\n    totalPages\n    pageSize\n    items {\n      id\n      firstName\n      firstLastName\n      secondLastName\n      phone\n      address\n      genre\n      birthDate\n      comments\n      tutorFullName\n      extraPhone\n      createdAt\n      updatedAt\n    }\n  }\n}",
+        "variables": "{\n  \"skip\": 1,\n  \"take\": 4\n}"
       }
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMzY1M2VkYzhjMWUwOTU0MTU4NzdkZSIsImZpcnN0TmFtZSI6IkRlbmVzIiwibGFzdE5hbWUiOiJNaWphbmdvcyIsImVtYWlsIjoiZW1haWwxQGVtYWlsLmNvbSIsImxhbmd1YWdlIjoiZW4iLCJyZXNldFBhc3N3b3JkVG9rZW4iOm51bGwsInJlc2V0UGFzc3dvcmRUb2tlbkV4cGlyZXMiOiIyMDIyLTEyLTA2VDA2OjIzOjQ4Ljg0NVoiLCJjcmVhdGVkQXQiOiIyMDIyLTA5LTMwVDAyOjI2OjUzLjQ3NFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTEyLTA2VDA1OjMwOjU3LjA5NVoiLCJpc0FjdGl2ZSI6dHJ1ZSwibW9kZWxOYW1lIjoiVXNlciIsImF1dGhQcm92aWRlciI6IkxPQ0FMIiwiYXV0aFByb3ZpZGVySWQiOm51bGwsImlhdCI6MTY3MTUwNTMyMywiZXhwIjoxNjcxNTA2MjIzfQ.ueQLqmY_1ZjFpXLYRNPdEXC9AkCO3j46i9HcBajAkvA"
+      "bearer": "{{accessToken}}"
     },
     "tests": []
   },

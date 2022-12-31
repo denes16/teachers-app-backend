@@ -32,7 +32,7 @@ export class CaslAbilityFactoryService {
       createPrismaAbility,
     );
     can([AbilityAction.Read, AbilityAction.Update], 'User', { id: user.id });
-    can([AbilityAction.Read, AbilityAction.Update], 'Student', { id: user.id });
+    can(AbilityAction.Manage, 'Student');
     return build({
       detectSubjectType: (item) =>
         (typeof item === 'string' ? item : item.modelName) as any,

@@ -57,7 +57,7 @@ enum Genre {
 }
 
 model Student {
-  /// @HideField({ input: true })
+  /// @HideField({ match: ['*UpdateInput', '*CreateInput'] })
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
   firstName      String
   firstLastName  String
