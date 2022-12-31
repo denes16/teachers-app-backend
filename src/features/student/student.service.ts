@@ -1,4 +1,3 @@
-
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../../core/services/prisma/prisma.service';
 import { Student } from '../../@generated/student/student.model';
@@ -15,10 +14,12 @@ import { accessibleBy } from '@casl/prisma';
 export class StudentService {
   constructor(private prismaService: PrismaService) {}
 
-  async create(createOneStudentArgs: CreateOneStudentArgs): Promise<Student> {
+  async create(createOneStudentArgs: CreateOneStudentArgs, currentUser: CurrentUser): Promise<Student> {
+    if (!currentUser.ability.can(AbilityAction.Create, 'Student')) {
+      throw new ForbiddenException('errors.forbidden');
+    }
     return await this.prismaService.student.create(createOneStudentArgs);
   }
-
 
   async getOwnerOfStudent(student: Student): Promise<User> {
     return await this.prismaService.student

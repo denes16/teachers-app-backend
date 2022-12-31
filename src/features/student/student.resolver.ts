@@ -22,9 +22,13 @@ import { AbilityAction, AppSubjects } from '../auth/casl-ability-factory.service
 export class StudentResolver {
   constructor(private studentService: StudentService) {}
 
+  @NeedsPermission(AbilityAction.Create, 'Student')
   @Mutation(() => Student)
-  createStudent(@Args() createOneStudentArgs: CreateOneStudentArgs) {
-    return this.studentService.create(createOneStudentArgs);
+  createStudent(
+    @Args() createOneStudentArgs: CreateOneStudentArgs,
+    @GetCurrentUser() currentUser: CurrentUser,
+  ) {
+    return this.studentService.create(createOneStudentArgs, currentUser);
   }
 
   @NeedsPermission(AbilityAction.Read, 'Student')
@@ -65,6 +69,7 @@ export class StudentResolver {
   ) {
     return this.studentService.remove(id, currentUser);
   }
+
   @ResolveField(() => String)
   user(@Parent() student: Student) {
     return this.studentService.getOwnerOfStudent(student);
