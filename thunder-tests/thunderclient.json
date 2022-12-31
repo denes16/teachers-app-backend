@@ -224,7 +224,7 @@
     "method": "POST",
     "sortNum": 100000,
     "created": "2022-12-18T01:13:19.633Z",
-    "modified": "2022-12-31T15:36:54.844Z",
+    "modified": "2022-12-31T23:21:55.638Z",
     "headers": [],
     "params": [
       {
@@ -244,7 +244,7 @@
       "form": [],
       "graphql": {
         "query": "query Students($take: Int, $skip: Int) {\n  students(take: $take, skip: $skip) {\n    totalRecords\n    currentPage\n    totalPages\n    pageSize\n    items {\n      id\n      firstName\n      firstLastName\n      secondLastName\n      phone\n      address\n      genre\n      birthDate\n      comments\n      tutorFullName\n      extraPhone\n      createdAt\n      updatedAt\n    }\n  }\n}",
-        "variables": "{\n  \"skip\": 1,\n  \"take\": 4\n}"
+        "variables": "{\n  \"skip\": 2,\n  \"take\": 4\n}"
       }
     },
     "auth": {
@@ -262,7 +262,7 @@
     "method": "POST",
     "sortNum": 110000,
     "created": "2022-12-18T01:14:55.538Z",
-    "modified": "2022-12-18T01:15:37.851Z",
+    "modified": "2022-12-31T22:48:50.480Z",
     "headers": [],
     "params": [],
     "body": {
@@ -270,9 +270,13 @@
       "raw": "",
       "form": [],
       "graphql": {
-        "query": "query Student($studentId: ID!) {\r\n  student(id: $studentId) {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthdate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}",
-        "variables": "{\r\n  \"studentId\": \"639e1ef572bb9d60d9d54a8d\"\r\n}"
+        "query": "query Student($studentId: ID!) {\n  student(id: $studentId) {\n    id\n    firstName\n    firstLastName\n    secondLastName\n    phone\n    address\n    genre\n    birthdate\n    comments\n    tutorFullName\n    extraPhone\n    createdAt\n    updatedAt\n  }\n}",
+        "variables": "{\n  \"studentId\": \"639e1ef572bb9d60d9d54a8d\"\n}"
       }
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{accessToken}}"
     },
     "tests": []
   },
@@ -285,7 +289,7 @@
     "method": "POST",
     "sortNum": 120000,
     "created": "2022-12-18T01:15:50.481Z",
-    "modified": "2022-12-18T01:16:32.483Z",
+    "modified": "2022-12-31T23:21:29.012Z",
     "headers": [],
     "params": [],
     "body": {
@@ -293,9 +297,13 @@
       "raw": "",
       "form": [],
       "graphql": {
-        "query": "mutation UpdateStudent($updateStudentId: ID!, $updateStudentInput: UpdateStudentInput!) {\r\n  updateStudent(id: $updateStudentId, updateStudentInput: $updateStudentInput) {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthdate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}",
-        "variables": "{  \r\n  \"updateStudentId\": \"639e1ef572bb9d60d9d54a8d\",\r\n  \"updateStudentInput\": {\r\n    \"firstName\": \"Denes updated 1\"\r\n  }\r\n}"
+        "query": "mutation UpdateStudent($updateStudentId: ID!, $updateStudentInput: StudentUpdateInput!) {\r\n  updateStudent(id: $updateStudentId, updateStudentInput: $updateStudentInput) {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthDate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n    user {\r\n      id\r\n    }\r\n    userId\r\n  }\r\n}",
+        "variables": "{  \r\n  \"updateStudentId\": \"639e3e17c8eae1f7683f58b7\",\r\n  \"updateStudentInput\": {\r\n    \"firstName\": \"Cristian Updated\"\r\n  }\r\n}\r\n"
       }
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{accessToken}}"
     },
     "tests": []
   },
@@ -308,7 +316,7 @@
     "method": "POST",
     "sortNum": 130000,
     "created": "2022-12-18T01:16:45.842Z",
-    "modified": "2022-12-18T01:17:20.172Z",
+    "modified": "2022-12-31T23:23:03.642Z",
     "headers": [],
     "params": [],
     "body": {
@@ -316,9 +324,13 @@
       "raw": "",
       "form": [],
       "graphql": {
-        "query": "mutation RemoveStudent($removeStudentId: ID!) {\r\n  removeStudent(id: $removeStudentId) {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthdate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}",
-        "variables": "{\r\n  \"removeStudentId\": \"639e680dfd9a71e9d375b133\"\r\n}"
+        "query": "mutation RemoveStudent($removeStudentId: ID!) {\r\n  removeStudent(id: $removeStudentId) {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthDate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n    user {\r\n      id\r\n    }\r\n    userId\r\n  }\r\n}",
+        "variables": "{\r\n  \"removeStudentId\": \"63a19879d2851807d3b15a17\"\r\n}"
       }
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{accessToken}}"
     },
     "tests": []
   }

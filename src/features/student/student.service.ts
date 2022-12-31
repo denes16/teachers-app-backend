@@ -56,12 +56,17 @@ export class StudentService {
     });
   }
 
-  async findOne(id: string): Promise<Student> {
+  async findOne(id: string, currentUser: CurrentUser): Promise<Student> {
     const student = await this.prismaService.student.findUnique({
-      where: { id },
+      where: {
+        id,
+      },
     });
     if (!student) {
       throw new NotFoundException('errors.studentNotFound');
+    }
+    if (!currentUser.ability.can(AbilityAction.Read, student)) {
+      throw new ForbiddenException('errors.forbidden');
     }
     return student;
   }
@@ -69,18 +74,27 @@ export class StudentService {
   async update(
     id: string,
     updateStudentInput: StudentUpdateInput,
+    currentUser: CurrentUser,
   ): Promise<Student> {
-    await this.findOne(id);
+    const student = await this.findOne(id, currentUser);
+    if (!currentUser.ability.can(AbilityAction.Update, student)) {
+      throw new ForbiddenException('errors.forbidden');
+    }
     return await this.prismaService.student.update({
-      where: { id },
+      where: {
+        id
+      },
       data: {
         ...updateStudentInput,
       },
     });
   }
 
-  async remove(id: string): Promise<Student> {
-    await this.findOne(id);
+  async remove(id: string, currentUser: CurrentUser): Promise<Student> {
+    const student = await this.findOne(id, currentUser);
+    if (!currentUser.ability.can(AbilityAction.Delete, student)) {
+      throw new ForbiddenException('errors.forbidden');
+    }
     return await this.prismaService.student.delete({
       where: { id },
     });

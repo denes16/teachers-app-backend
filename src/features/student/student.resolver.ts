@@ -38,22 +38,32 @@ export class StudentResolver {
 
   }
 
+  @NeedsPermission(AbilityAction.Read, 'Student')
   @Query(() => Student, { name: 'student' })
-  findOne(@Args('id', { type: () => ID }) id: string) {
-    return this.studentService.findOne(id);
+  findOne(
+    @Args('id', { type: () => ID }) id: string,
+    @GetCurrentUser() currentUser: CurrentUser,
+  ) {
+    return this.studentService.findOne(id, currentUser);
   }
 
+  @NeedsPermission(AbilityAction.Update, 'Student')
   @Mutation(() => Student)
   updateStudent(
     @Args('id', { type: () => ID }) id: string,
     @Args('updateStudentInput') updateStudentInput: StudentUpdateInput,
+    @GetCurrentUser() currentUser: CurrentUser,
   ) {
-    return this.studentService.update(id, updateStudentInput);
+    return this.studentService.update(id, updateStudentInput, currentUser);
   }
 
+  @NeedsPermission(AbilityAction.Delete, 'Student')
   @Mutation(() => Student)
-  removeStudent(@Args('id', { type: () => ID }) id: string) {
-    return this.studentService.remove(id);
+  removeStudent(
+    @Args('id', { type: () => ID }) id: string,
+    @GetCurrentUser() currentUser: CurrentUser,
+  ) {
+    return this.studentService.remove(id, currentUser);
   }
   @ResolveField(() => String)
   user(@Parent() student: Student) {
