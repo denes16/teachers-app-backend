@@ -9,13 +9,17 @@ import { User } from '@prisma/client';
 import { CurrentUser } from '../auth/types/current-user.type';
 import { AbilityAction } from '../auth/casl-ability-factory.service';
 import { accessibleBy } from '@casl/prisma';
+import { Logger } from '@nestjs/common/services';
 
 @Injectable()
 export class StudentService {
   constructor(private prismaService: PrismaService) {}
 
   async create(createOneStudentArgs: CreateOneStudentArgs, currentUser: CurrentUser): Promise<Student> {
-    if (!currentUser.ability.can(AbilityAction.Create, 'Student')) {
+    let student = new Student();
+    Object.assign(student, createOneStudentArgs.data);
+    student.modelName = 'Student';
+    if (!currentUser.ability.can(AbilityAction.Create, student)) {
       throw new ForbiddenException('errors.forbidden');
     }
     return await this.prismaService.student.create(createOneStudentArgs);
