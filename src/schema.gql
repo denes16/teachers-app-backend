@@ -65,6 +65,7 @@ type GetManyStudentsResponse {
 }
 
 type Query {
+  me: User!
   user(id: ID!): User!
   students(where: StudentWhereInput, orderBy: [StudentOrderByWithRelationInput!], cursor: StudentWhereUniqueInput, take: Int, skip: Int, distinct: [StudentScalarFieldEnum!]): GetManyStudentsResponse!
   student(id: ID!): Student!

@@ -14,6 +14,7 @@ export const StudentMock: Student = {
   tutorFullName: 'John Doe',
   extraPhone: '1234567890',
   modelName: 'Student',
+  userId: '1',
   createdAt: new Date(),
   updatedAt: new Date(),
   userId: "1"
