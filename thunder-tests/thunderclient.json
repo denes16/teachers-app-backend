@@ -201,7 +201,7 @@
     "method": "POST",
     "sortNum": 115000,
     "created": "2022-12-17T09:28:14.454Z",
-    "modified": "2023-01-01T16:55:11.050Z",
+    "modified": "2023-01-01T21:57:56.026Z",
     "headers": [],
     "params": [],
     "body": {
@@ -209,8 +209,8 @@
       "raw": "",
       "form": [],
       "graphql": {
-        "query": "mutation CreateStudent($data: StudentUncheckedCreateInput!) {\r\n  createStudent(data: $data) {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthDate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n    userId\r\n  }\r\n}",
-        "variables": "{\r\n  \"data\": {\r\n    \"firstName\": \"Rafael - 3\",\r\n    \"firstLastName\": \"Toro - 3\",\r\n    \"secondLastName\": \"Ferrufino - 3\",\r\n    \"phone\": \"12345611\",\r\n    \"address\": \"Avenida Mexico\",\r\n    \"genre\": \"MALE\",\r\n    \"birthDate\": \"10/02/2022\",\r\n    \"comments\": \"This isa comment\",\r\n    \"tutorFullName\": \"This is a tutor\",\r\n    \"extraPhone\": \"123531\",\r\n    \"userId\": \"633653edc8c1e095415877de\"\r\n  }\r\n}"
+        "query": "mutation CreateStudent($data: StudentUncheckedCreateInput!) {\n  createStudent(data: $data) {\n    id\n    firstName\n    firstLastName\n    secondLastName\n    phone\n    address\n    genre\n    birthDate\n    comments\n    tutorFullName\n    extraPhone\n    createdAt\n    updatedAt\n    userId\n  }\n}",
+        "variables": "{\n  \"data\": {\n    \"firstName\": \"Isaias\",\n    \"firstLastName\": \"Gomez\",\n    \"secondLastName\": \"Torrez\",\n    \"phone\": \"12345611\",\n    \"address\": \"Avenida ventura\",\n    \"genre\": \"MALE\",\n    \"birthDate\": \"10/02/2002\",\n    \"comments\": \"This is a comment\",\n    \"tutorFullName\": \"Isaias Tutor\",\n    \"extraPhone\": \"123531\",\n    \"userId\": \"633653edc8c1e095415877de\"\n  }\n}"
       }
     },
     "auth": {
@@ -293,7 +293,7 @@
     "method": "POST",
     "sortNum": 120000,
     "created": "2022-12-18T01:15:50.481Z",
-    "modified": "2022-12-31T23:21:29.012Z",
+    "modified": "2023-01-01T21:58:17.179Z",
     "headers": [],
     "params": [],
     "body": {
@@ -301,8 +301,8 @@
       "raw": "",
       "form": [],
       "graphql": {
-        "query": "mutation UpdateStudent($updateStudentId: ID!, $updateStudentInput: StudentUpdateInput!) {\r\n  updateStudent(id: $updateStudentId, updateStudentInput: $updateStudentInput) {\r\n    id\r\n    firstName\r\n    firstLastName\r\n    secondLastName\r\n    phone\r\n    address\r\n    genre\r\n    birthDate\r\n    comments\r\n    tutorFullName\r\n    extraPhone\r\n    createdAt\r\n    updatedAt\r\n    user {\r\n      id\r\n    }\r\n    userId\r\n  }\r\n}",
-        "variables": "{  \r\n  \"updateStudentId\": \"639e3e17c8eae1f7683f58b7\",\r\n  \"updateStudentInput\": {\r\n    \"firstName\": \"Cristian Updated\"\r\n  }\r\n}\r\n"
+        "query": "mutation UpdateStudent($updateStudentId: ID!, $updateStudentInput: StudentUpdateInput!) {\n  updateStudent(id: $updateStudentId, updateStudentInput: $updateStudentInput) {\n    id\n    firstName\n    firstLastName\n    secondLastName\n    phone\n    address\n    genre\n    birthDate\n    comments\n    tutorFullName\n    extraPhone\n    createdAt\n    updatedAt\n    user {\n      id\n    }\n    userId\n  }\n}",
+        "variables": "{  \n  \"updateStudentId\": \"63b201e3df002ec66a76a464\",\n  \"updateStudentInput\": {\n    \"firstName\": \"Isaias Updated\"\n  }\n}\n"
       }
     },
     "auth": {
