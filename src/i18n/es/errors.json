@@ -3,5 +3,7 @@
   "badCredentials": "Correo electronico o contraseña incorrectos",
   "userNotFound": "Usuario no encontrado",
   "internalServerError": "Error interno del servidor",
-  "studentNotFound": "Estudiante no encontrado"
+  "studentNotFound": "Estudiante no encontrado",
+  "forbidden": "No tienes permiso para acceder a este recurso",
+  "403": "No tienes permiso para acceder a este recurso"
 }

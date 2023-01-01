@@ -24,7 +24,15 @@
         "name": "Student",
         "containerId": "",
         "created": "2022-12-17T09:27:47.341Z",
-        "sortNum": 30000
+        "sortNum": 30000,
+        "settings": {
+          "headers": [],
+          "auth": {
+            "type": "bearer",
+            "bearer": "{{accessToken}}"
+          },
+          "tests": []
+        }
       }
     ],
     "settings": {

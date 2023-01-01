@@ -28,7 +28,7 @@ export abstract class BasePaginatedResponseModel<T> {
     items: T[];
   }) {
     this.totalRecords = totalRecords;
-    this.currentPage = limit ? skip / limit : 1;
+    this.currentPage = skip ? Math.ceil(skip / limit) : 1;
     this.pageSize = limit || 1_000;
     this.totalPages = Math.ceil(totalRecords / this.pageSize);
     this.items = items;
