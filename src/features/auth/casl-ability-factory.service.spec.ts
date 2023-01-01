@@ -32,5 +32,12 @@ describe('CaslAbilityFactoryService', () => {
       expect(ability.can(AbilityAction.Read, noSelf as any)).toBeFalsy();
       expect(ability.can(AbilityAction.Update, noSelf as any)).toBeFalsy();
     });
+    it('can manage its own students', () => {
+      expect(ability.can(AbilityAction.Manage, 'Student')).toBeTruthy();
+    });
+    it('cannot manage other students', () => {
+      const noSelf = { ...UserMock, id: 'otherId' };
+      expect(ability.can(AbilityAction.Manage, noSelf as any)).toBeFalsy();
+    });
   });
 });
