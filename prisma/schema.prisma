@@ -43,7 +43,8 @@ model User {
   authProviderId String?
 
   /// @HideField({ output: true, input: true })
-  students       Student[]
+  students     Student[]
+  StudentsList StudentsList[]
 }
 
 enum AuthProvider {
@@ -78,5 +79,25 @@ model Student {
   userId String @db.ObjectId
 
   /// @HideField({ output: true, input: true })
-  modelName String @default("Student")
+  modelName      String        @default("Student")
+  StudentsList   StudentsList? @relation(fields: [studentsListId], references: [id])
+  studentsListId String?       @db.ObjectId
+}
+
+model StudentsList {
+  /// @HideField({ match: ['*UpdateInput', '*CreateInput'] })
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  comments  String?
+  students  Student[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  /// @HideField({ match: '*UpdateInput' })
+  user User @relation(fields: [userId], references: [id])
+  /// @HideField({ match: '*UpdateInput' })
+  userId String @db.ObjectId
+
+  /// @HideField({ output: true, input: true })
+  modelName String @default("StudentsList")
 }

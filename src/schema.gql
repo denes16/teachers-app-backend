@@ -2,37 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type UserCount {
-  students: Int!
-}
-
-type User {
-  id: ID!
-  firstName: String!
-  lastName: String!
-  email: String!
-  language: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  isActive: Boolean!
-  _count: UserCount!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-type AuthResponse {
-  accessToken: String!
-  refreshToken: String
-  user: User!
-}
-
-type ForgotPasswordResponse {
-  email: String
-}
-
 type Student {
   id: ID!
   firstName: String!
@@ -49,11 +18,62 @@ type Student {
   updatedAt: DateTime!
   user: User!
   userId: String!
+  StudentsList: StudentsList
+  studentsListId: String
 }
 
 enum Genre {
   MALE
   FEMALE
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type StudentsListCount {
+  students: Int!
+}
+
+type StudentsList {
+  id: ID!
+  name: String!
+  comments: String
+  students: [Student!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User!
+  userId: String!
+  _count: StudentsListCount!
+}
+
+type UserCount {
+  students: Int!
+  StudentsList: Int!
+}
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  language: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  isActive: Boolean!
+  StudentsList: [StudentsList!]
+  _count: UserCount!
+}
+
+type AuthResponse {
+  accessToken: String!
+  refreshToken: String
+  user: User!
+}
+
+type ForgotPasswordResponse {
+  email: String
 }
 
 type GetManyStudentsResponse {
@@ -90,6 +110,8 @@ input StudentWhereInput {
   updatedAt: DateTimeFilter
   user: UserRelationFilter
   userId: StringFilter
+  StudentsList: StudentsListRelationFilter
+  studentsListId: StringNullableFilter
 }
 
 input StringFilter {
@@ -235,6 +257,7 @@ input UserWhereInput {
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
   isActive: BoolFilter
+  StudentsList: StudentsListListRelationFilter
 }
 
 input BoolFilter {
@@ -245,6 +268,37 @@ input BoolFilter {
 input NestedBoolFilter {
   equals: Boolean
   not: NestedBoolFilter
+}
+
+input StudentsListListRelationFilter {
+  every: StudentsListWhereInput
+  some: StudentsListWhereInput
+  none: StudentsListWhereInput
+}
+
+input StudentsListWhereInput {
+  AND: [StudentsListWhereInput!]
+  OR: [StudentsListWhereInput!]
+  NOT: [StudentsListWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  comments: StringNullableFilter
+  students: StudentListRelationFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+input StudentListRelationFilter {
+  every: StudentWhereInput
+  some: StudentWhereInput
+  none: StudentWhereInput
+}
+
+input StudentsListRelationFilter {
+  is: StudentsListWhereInput
+  isNot: StudentsListWhereInput
 }
 
 input StudentOrderByWithRelationInput {
@@ -263,6 +317,8 @@ input StudentOrderByWithRelationInput {
   updatedAt: SortOrder
   user: UserOrderByWithRelationInput
   userId: SortOrder
+  StudentsList: StudentsListOrderByWithRelationInput
+  studentsListId: SortOrder
 }
 
 enum SortOrder {
@@ -278,6 +334,26 @@ input UserOrderByWithRelationInput {
   createdAt: SortOrder
   updatedAt: SortOrder
   isActive: SortOrder
+  StudentsList: StudentsListOrderByRelationAggregateInput
+}
+
+input StudentsListOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input StudentsListOrderByWithRelationInput {
+  id: SortOrder
+  name: SortOrder
+  comments: SortOrder
+  students: StudentOrderByRelationAggregateInput
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
+}
+
+input StudentOrderByRelationAggregateInput {
+  _count: SortOrder
 }
 
 input StudentWhereUniqueInput {
@@ -300,6 +376,7 @@ enum StudentScalarFieldEnum {
   updatedAt
   userId
   modelName
+  studentsListId
 }
 
 type Mutation {
@@ -360,6 +437,7 @@ input StudentUncheckedCreateInput {
   createdAt: DateTime
   updatedAt: DateTime
   userId: String!
+  studentsListId: String
 }
 
 input StudentUpdateInput {
@@ -375,4 +453,94 @@ input StudentUpdateInput {
   extraPhone: String
   createdAt: DateTime
   updatedAt: DateTime
+  StudentsList: StudentsListUpdateOneWithoutStudentsNestedInput
+}
+
+input StudentsListUpdateOneWithoutStudentsNestedInput {
+  create: StudentsListCreateWithoutStudentsInput
+  connectOrCreate: StudentsListCreateOrConnectWithoutStudentsInput
+  upsert: StudentsListUpsertWithoutStudentsInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: StudentsListWhereUniqueInput
+  update: StudentsListUpdateWithoutStudentsInput
+}
+
+input StudentsListCreateWithoutStudentsInput {
+  id: String
+  name: String!
+  comments: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  user: UserCreateNestedOneWithoutStudentsListInput!
+}
+
+input UserCreateNestedOneWithoutStudentsListInput {
+  create: UserCreateWithoutStudentsListInput
+  connectOrCreate: UserCreateOrConnectWithoutStudentsListInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutStudentsListInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  language: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  isActive: Boolean
+}
+
+input UserCreateOrConnectWithoutStudentsListInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutStudentsListInput!
+}
+
+input UserWhereUniqueInput {
+  email: String
+}
+
+input StudentsListCreateOrConnectWithoutStudentsInput {
+  where: StudentsListWhereUniqueInput!
+  create: StudentsListCreateWithoutStudentsInput!
+}
+
+input StudentsListWhereUniqueInput {
+  id: String
+}
+
+input StudentsListUpsertWithoutStudentsInput {
+  update: StudentsListUpdateWithoutStudentsInput!
+  create: StudentsListCreateWithoutStudentsInput!
+}
+
+input StudentsListUpdateWithoutStudentsInput {
+  name: String
+  comments: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  user: UserUpdateOneRequiredWithoutStudentsListNestedInput
+}
+
+input UserUpdateOneRequiredWithoutStudentsListNestedInput {
+  create: UserCreateWithoutStudentsListInput
+  connectOrCreate: UserCreateOrConnectWithoutStudentsListInput
+  upsert: UserUpsertWithoutStudentsListInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutStudentsListInput
+}
+
+input UserUpsertWithoutStudentsListInput {
+  update: UserUpdateWithoutStudentsListInput!
+  create: UserCreateWithoutStudentsListInput!
+}
+
+input UserUpdateWithoutStudentsListInput {
+  firstName: String
+  lastName: String
+  email: String
+  language: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  isActive: Boolean
 }

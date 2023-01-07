@@ -122,6 +122,7 @@ describe('AuthService', () => {
 
   describe('forgotPassword', () => {
     it('should be successful', async () => {
+      prismaService.user.findUnique = jest.fn().mockResolvedValue(UserMock);
       prismaService.user.update = jest.fn().mockResolvedValue(UserMock);
       await authService.forgotPassword(ForgotPasswordInputMock);
       expect(mailService.sendMail).toBeCalledTimes(1);
