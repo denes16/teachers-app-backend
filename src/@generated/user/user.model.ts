@@ -53,7 +53,7 @@ export class User {
     authProviderId!: string | null;
 
     @HideField()
-    students?: Array<Student>;
+    student?: Array<Student>;
 
     @Field(() => [StudentsList], {nullable:true})
     StudentsList?: Array<StudentsList>;

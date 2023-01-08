@@ -48,7 +48,7 @@ export class UserUpdateInput {
     authProviderId?: string;
 
     @HideField()
-    students?: StudentUpdateManyWithoutUserNestedInput;
+    student?: StudentUpdateManyWithoutUserNestedInput;
 
     @Field(() => StudentsListUpdateManyWithoutUserNestedInput, {nullable:true})
     StudentsList?: StudentsListUpdateManyWithoutUserNestedInput;

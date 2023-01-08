@@ -51,7 +51,7 @@ export class UserCreateInput {
     authProviderId?: string;
 
     @HideField()
-    students?: StudentCreateNestedManyWithoutUserInput;
+    student?: StudentCreateNestedManyWithoutUserInput;
 
     @Field(() => StudentsListCreateNestedManyWithoutUserInput, {nullable:true})
     StudentsList?: StudentsListCreateNestedManyWithoutUserInput;

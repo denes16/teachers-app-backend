@@ -17,6 +17,7 @@ import { JwtAccessAuthGuard } from './features/auth/guards/jwt-access-auth.guard
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { StudentModule } from './features/student/student.module';
+import { StudentsListModule } from './features/students-list/students-list.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { StudentModule } from './features/student/student.module';
     UsersModule,
     AuthModule,
     StudentModule,
+    StudentsListModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),

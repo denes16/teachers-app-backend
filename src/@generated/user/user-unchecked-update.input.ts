@@ -48,7 +48,7 @@ export class UserUncheckedUpdateInput {
     authProviderId?: string;
 
     @HideField()
-    students?: StudentUncheckedUpdateManyWithoutUserNestedInput;
+    student?: StudentUncheckedUpdateManyWithoutUserNestedInput;
 
     @Field(() => StudentsListUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
     StudentsList?: StudentsListUncheckedUpdateManyWithoutUserNestedInput;

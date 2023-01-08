@@ -337,5 +337,44 @@
       "bearer": "{{accessToken}}"
     },
     "tests": []
+  },
+  {
+    "_id": "5b19610f-7c3c-48d6-a98d-c9c4de55599b",
+    "colId": "8eea2ee9-042d-4e7d-83de-9f0c371220c0",
+    "containerId": "11fdd0aa-e5ae-412a-9a2d-49e8c443a684",
+    "name": "Get Many",
+    "url": "{{graphqlUrl}}",
+    "method": "POST",
+    "sortNum": 140000,
+    "created": "2023-01-07T20:08:31.968Z",
+    "modified": "2023-01-07T20:16:29.179Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "graphql",
+      "raw": "",
+      "form": [],
+      "graphql": {
+        "query": "query StudentsListAll($take: Int, $skip: Int) {\r\n  studentsListAll(take: $take, skip: $skip) {\r\n    totalRecords\r\n    currentPage\r\n    totalPages\r\n    pageSize\r\n    items {\r\n      id\r\n      name\r\n      comments\r\n      students {\r\n        id\r\n      }\r\n      createdAt\r\n      updatedAt\r\n      userId\r\n    }\r\n  }\r\n}",
+        "variables": "{\r\n  \"skip\": 1,\r\n  \"take\": 2\r\n}"
+      }
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{accessToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "2d4b8c1a-e73e-44f7-9cef-039af182d603",
+    "colId": "8eea2ee9-042d-4e7d-83de-9f0c371220c0",
+    "containerId": "11fdd0aa-e5ae-412a-9a2d-49e8c443a684",
+    "name": "Create",
+    "url": "",
+    "method": "GET",
+    "sortNum": 150000,
+    "created": "2023-01-07T21:28:54.260Z",
+    "modified": "2023-01-07T21:28:54.260Z",
+    "headers": []
   }
 ]

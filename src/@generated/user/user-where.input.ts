@@ -65,7 +65,7 @@ export class UserWhereInput {
     authProviderId?: StringNullableFilter;
 
     @HideField()
-    students?: StudentListRelationFilter;
+    student?: StudentListRelationFilter;
 
     @Field(() => StudentsListListRelationFilter, {nullable:true})
     StudentsList?: StudentsListListRelationFilter;

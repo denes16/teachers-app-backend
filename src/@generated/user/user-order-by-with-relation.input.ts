@@ -51,7 +51,7 @@ export class UserOrderByWithRelationInput {
     authProviderId?: keyof typeof SortOrder;
 
     @HideField()
-    students?: StudentOrderByRelationAggregateInput;
+    student?: StudentOrderByRelationAggregateInput;
 
     @Field(() => StudentsListOrderByRelationAggregateInput, {nullable:true})
     StudentsList?: StudentsListOrderByRelationAggregateInput;
