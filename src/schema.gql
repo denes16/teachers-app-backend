@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type StudentCount {
+  studentsList: Int!
+}
+
 type Student {
   id: ID!
   firstName: String!
@@ -18,8 +22,9 @@ type Student {
   updatedAt: DateTime!
   user: User!
   userId: String!
-  studentsList: StudentsList
-  studentsListId: String
+  studentsListIds: [String!]
+  studentsList: [StudentsList!]
+  _count: StudentCount!
 }
 
 enum Genre {
@@ -33,14 +38,15 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type StudentsListCount {
-  students: Int!
+  student: Int!
 }
 
 type StudentsList {
   id: ID!
   name: String!
   comments: String
-  students: [Student!]
+  studentIds: [String!]
+  student: [Student!]
   createdAt: DateTime!
   updatedAt: DateTime!
   user: User!
@@ -120,8 +126,8 @@ input StudentWhereInput {
   updatedAt: DateTimeFilter
   user: UserRelationFilter
   userId: StringFilter
-  studentsList: StudentsListRelationFilter
-  studentsListId: StringNullableFilter
+  studentsListIds: StringNullableListFilter
+  studentsList: StudentsListListRelationFilter
 }
 
 input StringFilter {
@@ -293,22 +299,26 @@ input StudentsListWhereInput {
   id: StringFilter
   name: StringFilter
   comments: StringNullableFilter
-  students: StudentListRelationFilter
+  studentIds: StringNullableListFilter
+  student: StudentListRelationFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
   user: UserRelationFilter
   userId: StringFilter
 }
 
+input StringNullableListFilter {
+  equals: [String!]
+  has: String
+  hasEvery: [String!]
+  hasSome: [String!]
+  isEmpty: Boolean
+}
+
 input StudentListRelationFilter {
   every: StudentWhereInput
   some: StudentWhereInput
   none: StudentWhereInput
-}
-
-input StudentsListRelationFilter {
-  is: StudentsListWhereInput
-  isNot: StudentsListWhereInput
 }
 
 input StudentOrderByWithRelationInput {
@@ -327,8 +337,8 @@ input StudentOrderByWithRelationInput {
   updatedAt: SortOrder
   user: UserOrderByWithRelationInput
   userId: SortOrder
-  studentsList: StudentsListOrderByWithRelationInput
-  studentsListId: SortOrder
+  studentsListIds: SortOrder
+  studentsList: StudentsListOrderByRelationAggregateInput
 }
 
 enum SortOrder {
@@ -351,21 +361,6 @@ input StudentsListOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
-input StudentsListOrderByWithRelationInput {
-  id: SortOrder
-  name: SortOrder
-  comments: SortOrder
-  students: StudentOrderByRelationAggregateInput
-  createdAt: SortOrder
-  updatedAt: SortOrder
-  user: UserOrderByWithRelationInput
-  userId: SortOrder
-}
-
-input StudentOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
 input StudentWhereUniqueInput {
   id: String
 }
@@ -385,8 +380,24 @@ enum StudentScalarFieldEnum {
   createdAt
   updatedAt
   userId
+  studentsListIds
   modelName
-  studentsListId
+}
+
+input StudentsListOrderByWithRelationInput {
+  id: SortOrder
+  name: SortOrder
+  comments: SortOrder
+  studentIds: SortOrder
+  student: StudentOrderByRelationAggregateInput
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
+}
+
+input StudentOrderByRelationAggregateInput {
+  _count: SortOrder
 }
 
 input StudentsListWhereUniqueInput {
@@ -397,6 +408,7 @@ enum StudentsListScalarFieldEnum {
   id
   name
   comments
+  studentIds
   createdAt
   updatedAt
   userId
@@ -464,39 +476,21 @@ input StudentUncheckedCreateInput {
   createdAt: DateTime
   updatedAt: DateTime
   userId: String!
-  studentsListId: String
+  studentsListIds: [String!]
+  studentsList: StudentsListUncheckedCreateNestedManyWithoutStudentInput
 }
 
-input StudentUpdateInput {
-  firstName: String
-  firstLastName: String
-  secondLastName: String
-  phone: String
-  address: String
-  genre: Genre
-  birthDate: DateTime
-  comments: String
-  tutorFullName: String
-  extraPhone: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  studentsList: StudentsListUpdateOneWithoutStudentsNestedInput
+input StudentsListUncheckedCreateNestedManyWithoutStudentInput {
+  create: [StudentsListCreateWithoutStudentInput!]
+  connectOrCreate: [StudentsListCreateOrConnectWithoutStudentInput!]
+  connect: [StudentsListWhereUniqueInput!]
 }
 
-input StudentsListUpdateOneWithoutStudentsNestedInput {
-  create: StudentsListCreateWithoutStudentsInput
-  connectOrCreate: StudentsListCreateOrConnectWithoutStudentsInput
-  upsert: StudentsListUpsertWithoutStudentsInput
-  disconnect: Boolean
-  delete: Boolean
-  connect: StudentsListWhereUniqueInput
-  update: StudentsListUpdateWithoutStudentsInput
-}
-
-input StudentsListCreateWithoutStudentsInput {
+input StudentsListCreateWithoutStudentInput {
   id: String
   name: String!
   comments: String
+  studentIds: [String!]
   createdAt: DateTime
   updatedAt: DateTime
   user: UserCreateNestedOneWithoutStudentsListInput!
@@ -527,19 +521,51 @@ input UserWhereUniqueInput {
   email: String
 }
 
-input StudentsListCreateOrConnectWithoutStudentsInput {
+input StudentsListCreateOrConnectWithoutStudentInput {
   where: StudentsListWhereUniqueInput!
-  create: StudentsListCreateWithoutStudentsInput!
+  create: StudentsListCreateWithoutStudentInput!
 }
 
-input StudentsListUpsertWithoutStudentsInput {
-  update: StudentsListUpdateWithoutStudentsInput!
-  create: StudentsListCreateWithoutStudentsInput!
+input StudentUpdateInput {
+  firstName: String
+  firstLastName: String
+  secondLastName: String
+  phone: String
+  address: String
+  genre: Genre
+  birthDate: DateTime
+  comments: String
+  tutorFullName: String
+  extraPhone: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  studentsListIds: [String!]
+  studentsList: StudentsListUpdateManyWithoutStudentNestedInput
 }
 
-input StudentsListUpdateWithoutStudentsInput {
+input StudentsListUpdateManyWithoutStudentNestedInput {
+  create: [StudentsListCreateWithoutStudentInput!]
+  connectOrCreate: [StudentsListCreateOrConnectWithoutStudentInput!]
+  upsert: [StudentsListUpsertWithWhereUniqueWithoutStudentInput!]
+  set: [StudentsListWhereUniqueInput!]
+  disconnect: [StudentsListWhereUniqueInput!]
+  delete: [StudentsListWhereUniqueInput!]
+  connect: [StudentsListWhereUniqueInput!]
+  update: [StudentsListUpdateWithWhereUniqueWithoutStudentInput!]
+  updateMany: [StudentsListUpdateManyWithWhereWithoutStudentInput!]
+  deleteMany: [StudentsListScalarWhereInput!]
+}
+
+input StudentsListUpsertWithWhereUniqueWithoutStudentInput {
+  where: StudentsListWhereUniqueInput!
+  update: StudentsListUpdateWithoutStudentInput!
+  create: StudentsListCreateWithoutStudentInput!
+}
+
+input StudentsListUpdateWithoutStudentInput {
   name: String
   comments: String
+  studentIds: [String!]
   createdAt: DateTime
   updatedAt: DateTime
   user: UserUpdateOneRequiredWithoutStudentsListNestedInput
@@ -568,10 +594,42 @@ input UserUpdateWithoutStudentsListInput {
   isActive: Boolean
 }
 
+input StudentsListUpdateWithWhereUniqueWithoutStudentInput {
+  where: StudentsListWhereUniqueInput!
+  data: StudentsListUpdateWithoutStudentInput!
+}
+
+input StudentsListUpdateManyWithWhereWithoutStudentInput {
+  where: StudentsListScalarWhereInput!
+  data: StudentsListUpdateManyMutationInput!
+}
+
+input StudentsListScalarWhereInput {
+  AND: [StudentsListScalarWhereInput!]
+  OR: [StudentsListScalarWhereInput!]
+  NOT: [StudentsListScalarWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  comments: StringNullableFilter
+  studentIds: StringNullableListFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  userId: StringFilter
+}
+
+input StudentsListUpdateManyMutationInput {
+  name: String
+  comments: String
+  studentIds: [String!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 input StudentsListUncheckedCreateInput {
   name: String!
   comments: String
-  students: StudentUncheckedCreateNestedManyWithoutStudentsListInput
+  studentIds: [String!]
+  student: StudentUncheckedCreateNestedManyWithoutStudentsListInput
   createdAt: DateTime
   updatedAt: DateTime
   userId: String!
@@ -580,7 +638,6 @@ input StudentsListUncheckedCreateInput {
 input StudentUncheckedCreateNestedManyWithoutStudentsListInput {
   create: [StudentCreateWithoutStudentsListInput!]
   connectOrCreate: [StudentCreateOrConnectWithoutStudentsListInput!]
-  createMany: StudentCreateManyStudentsListInputEnvelope
   connect: [StudentWhereUniqueInput!]
 }
 
@@ -599,6 +656,7 @@ input StudentCreateWithoutStudentsListInput {
   createdAt: DateTime
   updatedAt: DateTime
   user: UserCreateNestedOneWithoutStudentInput!
+  studentsListIds: [String!]
 }
 
 input UserCreateNestedOneWithoutStudentInput {
@@ -629,7 +687,8 @@ input StudentsListCreateWithoutUserInput {
   id: String
   name: String!
   comments: String
-  students: StudentCreateNestedManyWithoutStudentsListInput
+  studentIds: [String!]
+  student: StudentCreateNestedManyWithoutStudentsListInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -637,34 +696,12 @@ input StudentsListCreateWithoutUserInput {
 input StudentCreateNestedManyWithoutStudentsListInput {
   create: [StudentCreateWithoutStudentsListInput!]
   connectOrCreate: [StudentCreateOrConnectWithoutStudentsListInput!]
-  createMany: StudentCreateManyStudentsListInputEnvelope
   connect: [StudentWhereUniqueInput!]
 }
 
 input StudentCreateOrConnectWithoutStudentsListInput {
   where: StudentWhereUniqueInput!
   create: StudentCreateWithoutStudentsListInput!
-}
-
-input StudentCreateManyStudentsListInputEnvelope {
-  data: [StudentCreateManyStudentsListInput!]!
-}
-
-input StudentCreateManyStudentsListInput {
-  id: String
-  firstName: String!
-  firstLastName: String!
-  secondLastName: String
-  phone: String
-  address: String
-  genre: Genre
-  birthDate: DateTime
-  comments: String
-  tutorFullName: String
-  extraPhone: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  userId: String!
 }
 
 input StudentsListCreateOrConnectWithoutUserInput {
@@ -680,6 +717,7 @@ input StudentsListCreateManyUserInput {
   id: String
   name: String!
   comments: String
+  studentIds: [String!]
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -692,7 +730,8 @@ input UserCreateOrConnectWithoutStudentInput {
 input StudentsListUpdateInput {
   name: String
   comments: String
-  students: StudentUpdateManyWithoutStudentsListNestedInput
+  studentIds: [String!]
+  student: StudentUpdateManyWithoutStudentsListNestedInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -701,7 +740,6 @@ input StudentUpdateManyWithoutStudentsListNestedInput {
   create: [StudentCreateWithoutStudentsListInput!]
   connectOrCreate: [StudentCreateOrConnectWithoutStudentsListInput!]
   upsert: [StudentUpsertWithWhereUniqueWithoutStudentsListInput!]
-  createMany: StudentCreateManyStudentsListInputEnvelope
   set: [StudentWhereUniqueInput!]
   disconnect: [StudentWhereUniqueInput!]
   delete: [StudentWhereUniqueInput!]
@@ -731,6 +769,7 @@ input StudentUpdateWithoutStudentsListInput {
   createdAt: DateTime
   updatedAt: DateTime
   user: UserUpdateOneRequiredWithoutStudentNestedInput
+  studentsListIds: [String!]
 }
 
 input UserUpdateOneRequiredWithoutStudentNestedInput {
@@ -780,7 +819,8 @@ input StudentsListUpsertWithWhereUniqueWithoutUserInput {
 input StudentsListUpdateWithoutUserInput {
   name: String
   comments: String
-  students: StudentUpdateManyWithoutStudentsListNestedInput
+  studentIds: [String!]
+  student: StudentUpdateManyWithoutStudentsListNestedInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -793,25 +833,6 @@ input StudentsListUpdateWithWhereUniqueWithoutUserInput {
 input StudentsListUpdateManyWithWhereWithoutUserInput {
   where: StudentsListScalarWhereInput!
   data: StudentsListUpdateManyMutationInput!
-}
-
-input StudentsListScalarWhereInput {
-  AND: [StudentsListScalarWhereInput!]
-  OR: [StudentsListScalarWhereInput!]
-  NOT: [StudentsListScalarWhereInput!]
-  id: StringFilter
-  name: StringFilter
-  comments: StringNullableFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-  userId: StringFilter
-}
-
-input StudentsListUpdateManyMutationInput {
-  name: String
-  comments: String
-  createdAt: DateTime
-  updatedAt: DateTime
 }
 
 input StudentUpdateWithWhereUniqueWithoutStudentsListInput {
@@ -842,7 +863,7 @@ input StudentScalarWhereInput {
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
   userId: StringFilter
-  studentsListId: StringNullableFilter
+  studentsListIds: StringNullableListFilter
 }
 
 input StudentUpdateManyMutationInput {
@@ -858,4 +879,5 @@ input StudentUpdateManyMutationInput {
   extraPhone: String
   createdAt: DateTime
   updatedAt: DateTime
+  studentsListIds: [String!]
 }

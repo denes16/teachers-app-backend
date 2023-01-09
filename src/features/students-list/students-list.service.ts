@@ -13,10 +13,21 @@ import { AbilityAction } from '../auth/casl-ability-factory.service';
 export class StudentsListService {
   constructor(private prismaService: PrismaService) {}
 
-  async create(createOneStudentsListArgs: CreateOneStudentsListArgs, currentUser: CurrentUser) {
+  async create(
+    createOneStudentsListArgs: CreateOneStudentsListArgs,
+    currentUser: CurrentUser
+  ) {
     let studentsList = new StudentsList();
     Object.assign(studentsList, createOneStudentsListArgs.data);
     studentsList.modelName = 'StudentsList';
+    studentsList.student = await this.prismaService.student.findMany({
+      where: {
+        id: { in: createOneStudentsListArgs.data.studentIds },
+        AND: [
+          accessibleBy(currentUser?.ability).Student,
+        ]
+      },
+    });
     if (!currentUser.ability.can(AbilityAction.Create, studentsList)) {
       throw new ForbiddenException('errors.forbidden');
     }
@@ -36,7 +47,13 @@ export class StudentsListService {
         ]
       },
     }
-    const items = await this.prismaService.studentsList.findMany({ ...query, ...rest });
+    const items = await this.prismaService.studentsList.findMany({
+      ...query,
+      ...rest,
+      include: {
+        student: true,
+      }
+    });
     const totalRecords = await this.prismaService.studentsList.count(query);
     return new GetManyStudentsListResponse({
       items,
@@ -51,28 +68,33 @@ export class StudentsListService {
       where: {
         id,
       },
+      include: {
+        student: true,
+      }
     });
     if (!studentsList) {
       throw new NotFoundException('errors.studentNotFound');
     }
     if (!currentUser.ability.can(AbilityAction.Read, studentsList)) {
+      console.log('Forbidden to find one');
       throw new ForbiddenException('errors.forbidden');
     }
     return studentsList;
   }
 
-  async update(id: string, updateStudentsListInput: StudentsListUpdateInput) {
-    // const student = await this.findOne(id, currentUser);
-    // if (!currentUser.ability.can(AbilityAction.Update, student)) {
-    //   throw new ForbiddenException('errors.forbidden');
-    // }
-    return await this.prismaService.student.update({
-      where: {
-        id
-      },
-      data: {
-        ...updateStudentsListInput,
-      },
+  async update(
+    id: string,
+    updateStudentsListInput: StudentsListUpdateInput,
+    currentUser: CurrentUser
+  ) {
+    const studentsList = await this.findOne(id, currentUser);
+    if (!currentUser.ability.can(AbilityAction.Update, studentsList)) {
+      console.log('Forbidden to update');
+      throw new ForbiddenException('errors.forbidden');
+    }
+    return await this.prismaService.studentsList.update({
+      where: { id },
+      data: updateStudentsListInput,
     });
   }
 

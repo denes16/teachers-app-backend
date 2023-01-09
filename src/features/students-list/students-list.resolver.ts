@@ -33,6 +33,7 @@ export class StudentsListResolver {
     return this.studentsListService.findAll(options, currentUser);
   }
 
+  @NeedsPermission(AbilityAction.Read, "StudentsList")
   @Query(() => StudentsList, { name: 'studentsList' })
   findOne(
     @Args('id', { type: () => ID }) id: string,
@@ -41,11 +42,14 @@ export class StudentsListResolver {
     return this.studentsListService.findOne(id, currentUser);
   }
 
+  @NeedsPermission(AbilityAction.Update, "StudentsList")
   @Mutation(() => StudentsList)
   updateStudentsList(
     @Args('id', { type: () => ID }) id: string,
-    @Args('updateStudentsListInput') updateStudentsListInput: StudentsListUpdateInput) {
-    return this.studentsListService.update(id, updateStudentsListInput);
+    @Args('updateStudentsListInput') updateStudentsListInput: StudentsListUpdateInput,
+    @GetCurrentUser() currentUser: CurrentUser
+  ) {
+    return this.studentsListService.update(id, updateStudentsListInput, currentUser);
   }
 
   @NeedsPermission(AbilityAction.Delete, "StudentsList")

@@ -1,4 +1,4 @@
-import { StudentsList } from '@prisma/client';
+import { StudentsList, Student } from '@prisma/client';
 
 export const StudentsListMock: StudentsList = {
   id: '1',
@@ -8,4 +8,5 @@ export const StudentsListMock: StudentsList = {
   updatedAt: new Date(),
   modelName: 'StudentsList',
   userId: '1',
+  studentIds: ["fdsafdsa"],
 };

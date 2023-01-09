@@ -8,8 +8,8 @@ type Model<T, TName extends string> = T & {
 type Subjects<T extends Partial<Record<string, Record<string, unknown>>>> =
   | keyof T
   | {
-      [K in keyof T]: Model<T[K], K & string>;
-    }[keyof T];
+    [K in keyof T]: Model<T[K], K & string>;
+  }[keyof T];
 export type AppSubjects = Subjects<{
   User: User;
   Student: Student;
@@ -34,7 +34,14 @@ export class CaslAbilityFactoryService {
     );
     can([AbilityAction.Read, AbilityAction.Update], 'User', { id: user.id });
     can(AbilityAction.Manage, 'Student', { userId: user.id });
-    can(AbilityAction.Manage, 'StudentsList', { userId: user.id });
+    can(AbilityAction.Manage, 'StudentsList', {
+      userId: user.id,
+      student: {
+        every: {
+          userId: user.id,
+        }
+      },
+    });
     return build({
       detectSubjectType: (item) =>
         (typeof item === 'string' ? item : item.modelName) as any,
