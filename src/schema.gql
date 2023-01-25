@@ -2,10 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type UserCount {
-  students: Int!
-}
-
 type User {
   id: ID!
   firstName: String!
@@ -15,7 +11,6 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   isActive: Boolean!
-  _count: UserCount!
 }
 
 """

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from '../../core/services/prisma/prisma.service';
 import { Student } from '../../@generated/student/student.model';
 import { GetManyStudentsResponse } from './model/get-many-students-response';
@@ -9,18 +13,20 @@ import { User } from '@prisma/client';
 import { CurrentUser } from '../auth/types/current-user.type';
 import { AbilityAction } from '../auth/casl-ability-factory.service';
 import { accessibleBy } from '@casl/prisma';
-import { Logger } from '@nestjs/common/services';
 
 @Injectable()
 export class StudentService {
   constructor(private prismaService: PrismaService) {}
 
-  async create(createOneStudentArgs: CreateOneStudentArgs, currentUser: CurrentUser): Promise<Student> {
-    let student = new Student();
+  async create(
+    createOneStudentArgs: CreateOneStudentArgs,
+    currentUser: CurrentUser,
+  ): Promise<Student> {
+    const student = new Student();
     Object.assign(student, createOneStudentArgs.data);
     student.modelName = 'Student';
     if (!currentUser.ability.can(AbilityAction.Create, student)) {
-      throw new ForbiddenException('errors.forbidden');
+      throw new ForbiddenException();
     }
     return await this.prismaService.student.create(createOneStudentArgs);
   }
@@ -35,22 +41,18 @@ export class StudentService {
     options?: FindManyStudentArgs,
     currentUser?: CurrentUser,
   ): Promise<GetManyStudentsResponse> {
-    const { where, ...rest } = options
+    const { where, ...rest } = options;
     const items = await this.prismaService.student.findMany({
       where: {
         ...where,
-        AND: [
-          accessibleBy(currentUser?.ability).Student,
-        ]
+        AND: [accessibleBy(currentUser?.ability).Student],
       },
       ...rest,
     });
     const totalRecords = await this.prismaService.student.count({
       where: {
         ...where,
-        AND: [
-          accessibleBy(currentUser?.ability).Student,
-        ]
+        AND: [accessibleBy(currentUser?.ability).Student],
       },
     });
     return new GetManyStudentsResponse({
@@ -71,7 +73,7 @@ export class StudentService {
       throw new NotFoundException('errors.studentNotFound');
     }
     if (!currentUser.ability.can(AbilityAction.Read, student)) {
-      throw new ForbiddenException('errors.forbidden');
+      throw new ForbiddenException();
     }
     return student;
   }
@@ -83,11 +85,11 @@ export class StudentService {
   ): Promise<Student> {
     const student = await this.findOne(id, currentUser);
     if (!currentUser.ability.can(AbilityAction.Update, student)) {
-      throw new ForbiddenException('errors.forbidden');
+      throw new ForbiddenException();
     }
     return await this.prismaService.student.update({
       where: {
-        id
+        id,
       },
       data: {
         ...updateStudentInput,
@@ -98,7 +100,7 @@ export class StudentService {
   async remove(id: string, currentUser: CurrentUser): Promise<Student> {
     const student = await this.findOne(id, currentUser);
     if (!currentUser.ability.can(AbilityAction.Delete, student)) {
-      throw new ForbiddenException('errors.forbidden');
+      throw new ForbiddenException();
     }
     return await this.prismaService.student.delete({
       where: { id },

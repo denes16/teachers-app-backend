@@ -228,7 +228,7 @@
     "method": "POST",
     "sortNum": 100000,
     "created": "2022-12-18T01:13:19.633Z",
-    "modified": "2022-12-31T23:40:49.406Z",
+    "modified": "2023-01-09T23:20:42.365Z",
     "headers": [],
     "params": [
       {
@@ -248,7 +248,7 @@
       "form": [],
       "graphql": {
         "query": "query Students($take: Int, $skip: Int) {\n  students(take: $take, skip: $skip) {\n    totalRecords\n    currentPage\n    totalPages\n    pageSize\n    items {\n      id\n      firstName\n      firstLastName\n      secondLastName\n      phone\n      address\n      genre\n      birthDate\n      comments\n      tutorFullName\n      extraPhone\n      createdAt\n      updatedAt\n    }\n  }\n}",
-        "variables": "{\n  \"skip\": 1,\n  \"take\": 10\n}"
+        "variables": "{\n  \"skip\": 0,\n  \"take\": 10\n}"
       }
     },
     "auth": {
