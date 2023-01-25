@@ -4,6 +4,7 @@ import { ID } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { AuthProvider } from '../prisma/auth-provider.enum';
 import { Student } from '../student/student.model';
+import { StudentsList } from '../students-list/students-list.model';
 import { UserCount } from './user-count.output';
 
 @ObjectType()
@@ -52,8 +53,11 @@ export class User {
     authProviderId!: string | null;
 
     @HideField()
-    students?: Array<Student>;
+    student?: Array<Student>;
 
-    // @Field(() => UserCount, {nullable:false})
-    // _count?: UserCount;
+    @HideField()
+    studentsList?: Array<StudentsList>;
+
+    @Field(() => UserCount, {nullable:false})
+    _count?: UserCount;
 }

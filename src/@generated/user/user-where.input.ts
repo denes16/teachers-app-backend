@@ -8,6 +8,7 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { BoolFilter } from '../prisma/bool-filter.input';
 import { EnumAuthProviderFilter } from '../prisma/enum-auth-provider-filter.input';
 import { StudentListRelationFilter } from '../student/student-list-relation-filter.input';
+import { StudentsListListRelationFilter } from '../students-list/students-list-list-relation-filter.input';
 
 @InputType()
 export class UserWhereInput {
@@ -64,5 +65,8 @@ export class UserWhereInput {
     authProviderId?: StringNullableFilter;
 
     @HideField()
-    students?: StudentListRelationFilter;
+    student?: StudentListRelationFilter;
+
+    @HideField()
+    studentsList?: StudentsListListRelationFilter;
 }

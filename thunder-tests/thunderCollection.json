@@ -33,6 +33,21 @@
           },
           "tests": []
         }
+      },
+      {
+        "_id": "11fdd0aa-e5ae-412a-9a2d-49e8c443a684",
+        "name": "Students List",
+        "containerId": "",
+        "created": "2023-01-07T20:07:56.360Z",
+        "sortNum": 50000,
+        "settings": {
+          "headers": [],
+          "auth": {
+            "type": "bearer",
+            "bearer": "{{accessToken}}"
+          },
+          "tests": []
+        }
       }
     ],
     "settings": {

@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { AuthProvider } from '../prisma/auth-provider.enum';
 import { StudentUncheckedUpdateManyWithoutUserNestedInput } from '../student/student-unchecked-update-many-without-user-nested.input';
+import { StudentsListUncheckedUpdateManyWithoutUserNestedInput } from '../students-list/students-list-unchecked-update-many-without-user-nested.input';
 
 @InputType()
 export class UserUncheckedUpdateInput {
@@ -47,5 +48,8 @@ export class UserUncheckedUpdateInput {
     authProviderId?: string;
 
     @HideField()
-    students?: StudentUncheckedUpdateManyWithoutUserNestedInput;
+    student?: StudentUncheckedUpdateManyWithoutUserNestedInput;
+
+    @HideField()
+    studentsList?: StudentsListUncheckedUpdateManyWithoutUserNestedInput;
 }

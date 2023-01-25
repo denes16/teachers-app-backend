@@ -17,4 +17,5 @@ export const StudentMock: Student = {
   userId: '1',
   createdAt: new Date(),
   updatedAt: new Date(),
+  studentsListIds: ['1'],
 };
