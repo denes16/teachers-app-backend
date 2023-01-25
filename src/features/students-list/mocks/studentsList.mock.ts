@@ -8,5 +8,5 @@ export const StudentsListMock: StudentsList = {
   updatedAt: new Date(),
   modelName: 'StudentsList',
   userId: '1',
-  studentIds: ["fdsafdsa"],
+  studentIds: [],
 };

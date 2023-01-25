@@ -11,6 +11,7 @@ describe('StudentsListService', () => {
   beforeEach(async () => {
     prismaService = {
       studentsList: {} as any,
+      student: {} as any,
     } as PrismaService;
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -55,6 +56,43 @@ describe('StudentsListService', () => {
     it('should throw an error', async () => {
       prismaService.studentsList.findUnique = jest.fn().mockResolvedValue(null);
       await expect(service.findOne('1', CurrentUserMock)).rejects.toThrowError();
+    });
+  });
+  describe('create', () => {
+    it('should be successfull with array of students empty', async () => {
+      prismaService.student.findMany = jest.fn().mockResolvedValue([]);
+      prismaService.studentsList.create = jest.fn().mockResolvedValue(StudentsListMock);
+      const result = await service.create({ data: StudentsListMock }, CurrentUserMock);
+      expect(result).toEqual(StudentsListMock);
+    });
+    it('should be successfull with a non-empty student array', async () => {
+      StudentsListMock.studentIds = ['1'];
+      prismaService.student.findMany = jest.fn().mockResolvedValue([StudentsListMock]);
+      prismaService.studentsList.create = jest.fn().mockResolvedValue(StudentsListMock);
+      const result = await service.create({ data: StudentsListMock }, CurrentUserMock);
+      expect(result).toEqual(StudentsListMock);
+    });
+    it('should throw an error', async () => {
+      prismaService.student.findMany = jest.fn().mockResolvedValue([StudentsListMock]);
+      await expect(service.create({ data: StudentsListMock }, CurrentUserMock)).rejects.toThrowError();
+    });
+  });
+  describe('update', () => {
+    it('should be successful', async () => {
+      prismaService.studentsList.findUnique = jest.fn().mockResolvedValue(StudentsListMock);
+      prismaService.studentsList.update = jest.fn().mockResolvedValue(StudentsListMock);
+      const result = await service.update(
+        '1',
+        StudentsListMock,
+        CurrentUserMock,
+      );
+      expect(result).toEqual(StudentsListMock);
+    });
+    it('should throw an error', async () => {
+      prismaService.studentsList.findUnique = jest.fn().mockResolvedValue(null);
+      await expect(
+        service.update('1', StudentsListMock, CurrentUserMock),
+      ).rejects.toThrowError();
     });
   });
   describe('remove', () => {
