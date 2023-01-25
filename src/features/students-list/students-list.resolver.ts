@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID, ResolveField, Parent } from '@nestjs/graphql';
 import { StudentsListService } from './students-list.service';
 import { StudentsListUpdateInput } from './../../@generated/students-list/students-list-update.input';
 import { FindManyStudentsListArgs } from '../../@generated/students-list/find-many-students-list.args';
@@ -9,6 +9,7 @@ import { GetManyStudentsListResponse } from './model/get-many-students-list-resp
 import { NeedsPermission } from '../auth/decorators/needs-permissions.decorator';
 import { AbilityAction } from '../auth/casl-ability-factory.service';
 import { CreateOneStudentsListArgs } from '../../@generated/students-list/create-one-students-list.args';
+import { Student } from '../../@generated/student/student.model';
 
 @Resolver(() => StudentsList)
 export class StudentsListResolver {
@@ -59,5 +60,10 @@ export class StudentsListResolver {
     @GetCurrentUser() currentUser: CurrentUser,
   ) {
     return this.studentsListService.remove(id, currentUser);
+  }
+
+  @ResolveField()
+  students(@Parent() studentList: StudentsList) {
+    return this.studentsListService.getStudents(studentList);
   }
 }

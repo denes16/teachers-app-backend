@@ -12,6 +12,7 @@ import { CurrentUser } from '../auth/types/current-user.type';
 import { accessibleBy } from '@casl/prisma';
 import { StudentsListUpdateInput } from '../../@generated/students-list/students-list-update.input';
 import { AbilityAction } from '../auth/casl-ability-factory.service';
+import { Student } from '../../@generated/student/student.model';
 
 @Injectable()
 export class StudentsListService {
@@ -52,9 +53,6 @@ export class StudentsListService {
     const items = await this.prismaService.studentsList.findMany({
       ...query,
       ...rest,
-      include: {
-        student: true,
-      },
     });
     const totalRecords = await this.prismaService.studentsList.count(query);
     return new GetManyStudentsListResponse({
@@ -69,9 +67,6 @@ export class StudentsListService {
     const studentsList = await this.prismaService.studentsList.findUnique({
       where: {
         id,
-      },
-      include: {
-        student: true,
       },
     });
     if (!studentsList) {
@@ -109,4 +104,15 @@ export class StudentsListService {
       where: { id },
     });
   }
+
+  async getStudents(studentsList: StudentsList) {
+    return await this.prismaService.studentsList
+      .findUnique({
+        where: {
+          id: studentsList.id,
+        },
+      })
+      .students();
+  }
+
 }
