@@ -1,6 +1,8 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 
-@ObjectType()
+@ObjectType({
+  isAbstract: true,
+})
 export abstract class BasePaginatedResponseModel<T> {
   @Field(() => Int)
   readonly totalRecords: number;
