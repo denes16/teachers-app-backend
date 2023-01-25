@@ -31,6 +31,9 @@ export class StudentsListService {
         AND: [accessibleBy(currentUser?.ability).Student],
       },
     });
+    if (studentsList.students.length !== createOneStudentsListArgs.data.studentIds.length) {
+      throw new ForbiddenException();
+    }
     if (!currentUser.ability.can(AbilityAction.Create, studentsList)) {
       throw new ForbiddenException();
     }
