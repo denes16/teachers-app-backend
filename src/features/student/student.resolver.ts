@@ -16,7 +16,10 @@ import { CreateOneStudentArgs } from '../../@generated/student/create-one-studen
 import { GetCurrentUser } from '../auth/decorators/get-current-user.decorator';
 import { CurrentUser } from '../auth/types/current-user.type';
 import { NeedsPermission } from '../auth/decorators/needs-permissions.decorator';
-import { AbilityAction, AppSubjects } from '../auth/casl-ability-factory.service';
+import {
+  AbilityAction,
+  AppSubjects,
+} from '../auth/casl-ability-factory.service';
 
 @Resolver(() => Student)
 export class StudentResolver {
@@ -39,7 +42,6 @@ export class StudentResolver {
     @GetCurrentUser() currentUser: CurrentUser,
   ) {
     return this.studentService.getMany(options, currentUser);
-
   }
 
   @NeedsPermission(AbilityAction.Read, 'Student')
@@ -70,7 +72,7 @@ export class StudentResolver {
     return this.studentService.remove(id, currentUser);
   }
 
-  @ResolveField(() => String)
+  @ResolveField()
   user(@Parent() student: Student) {
     return this.studentService.getOwnerOfStudent(student);
   }

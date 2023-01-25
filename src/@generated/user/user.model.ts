@@ -55,8 +55,8 @@ export class User {
     @HideField()
     student?: Array<Student>;
 
-    @Field(() => [StudentsList], {nullable:true})
-    StudentsList?: Array<StudentsList>;
+    @HideField()
+    studentsList?: Array<StudentsList>;
 
     @Field(() => UserCount, {nullable:false})
     _count?: UserCount;

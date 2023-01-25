@@ -8,12 +8,12 @@ type Model<T, TName extends string> = T & {
 type Subjects<T extends Partial<Record<string, Record<string, unknown>>>> =
   | keyof T
   | {
-    [K in keyof T]: Model<T[K], K & string>;
-  }[keyof T];
+      [K in keyof T]: Model<T[K], K & string>;
+    }[keyof T];
 export type AppSubjects = Subjects<{
   User: User;
   Student: Student;
-  StudentsList: StudentsList,
+  StudentsList: StudentsList;
 }>;
 
 export enum AbilityAction {
@@ -36,10 +36,12 @@ export class CaslAbilityFactoryService {
     can(AbilityAction.Manage, 'Student', { userId: user.id });
     can(AbilityAction.Manage, 'StudentsList', {
       userId: user.id,
-      student: {
-        every: {
-          userId: user.id,
-        }
+      students: {
+        none: {
+          userId: {
+            not: user.id,
+          },
+        },
       },
     });
     return build({
