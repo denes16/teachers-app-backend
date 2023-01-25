@@ -53,6 +53,6 @@ export class UserOrderByWithRelationInput {
     @HideField()
     student?: StudentOrderByRelationAggregateInput;
 
-    @Field(() => StudentsListOrderByRelationAggregateInput, {nullable:true})
-    StudentsList?: StudentsListOrderByRelationAggregateInput;
+    @HideField()
+    studentsList?: StudentsListOrderByRelationAggregateInput;
 }

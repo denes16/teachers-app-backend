@@ -50,6 +50,6 @@ export class UserUpdateInput {
     @HideField()
     student?: StudentUpdateManyWithoutUserNestedInput;
 
-    @Field(() => StudentsListUpdateManyWithoutUserNestedInput, {nullable:true})
-    StudentsList?: StudentsListUpdateManyWithoutUserNestedInput;
+    @HideField()
+    studentsList?: StudentsListUpdateManyWithoutUserNestedInput;
 }

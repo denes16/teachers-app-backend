@@ -67,6 +67,6 @@ export class UserWhereInput {
     @HideField()
     student?: StudentListRelationFilter;
 
-    @Field(() => StudentsListListRelationFilter, {nullable:true})
-    StudentsList?: StudentsListListRelationFilter;
+    @HideField()
+    studentsList?: StudentsListListRelationFilter;
 }

@@ -1,6 +1,10 @@
 import { CreateOneStudentsListArgs } from './../../@generated/students-list/create-one-students-list.args';
 import { StudentsList } from './../../@generated/students-list/students-list.model';
-import { Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../../core/services/prisma/prisma.service';
 import { GetManyStudentsListResponse } from './model/get-many-students-list-response';
 import { FindManyStudentsListArgs } from '../../@generated/students-list/find-many-students-list.args';
@@ -15,44 +19,42 @@ export class StudentsListService {
 
   async create(
     createOneStudentsListArgs: CreateOneStudentsListArgs,
-    currentUser: CurrentUser
+    currentUser: CurrentUser,
   ) {
     let studentsList = new StudentsList();
     Object.assign(studentsList, createOneStudentsListArgs.data);
     studentsList.modelName = 'StudentsList';
-    studentsList.student = await this.prismaService.student.findMany({
+    studentsList.students = await this.prismaService.student.findMany({
       where: {
         id: { in: createOneStudentsListArgs.data.studentIds },
-        AND: [
-          accessibleBy(currentUser?.ability).Student,
-        ]
+        AND: [accessibleBy(currentUser?.ability).Student],
       },
     });
     if (!currentUser.ability.can(AbilityAction.Create, studentsList)) {
-      throw new ForbiddenException('errors.forbidden');
+      throw new ForbiddenException();
     }
-    return await this.prismaService.studentsList.create(createOneStudentsListArgs);
+    return await this.prismaService.studentsList.create(
+      createOneStudentsListArgs,
+    );
   }
 
   async findAll(
     options?: FindManyStudentsListArgs,
     currentUser?: CurrentUser,
   ): Promise<GetManyStudentsListResponse> {
-    const { where, ...rest } = options
+    const { where, ...rest } = options;
     const query = {
       where: {
         ...where,
-        AND: [
-          accessibleBy(currentUser?.ability).StudentsList,
-        ]
+        AND: [accessibleBy(currentUser?.ability).StudentsList],
       },
-    }
+    };
     const items = await this.prismaService.studentsList.findMany({
       ...query,
       ...rest,
       include: {
         student: true,
-      }
+      },
     });
     const totalRecords = await this.prismaService.studentsList.count(query);
     return new GetManyStudentsListResponse({
@@ -70,7 +72,7 @@ export class StudentsListService {
       },
       include: {
         student: true,
-      }
+      },
     });
     if (!studentsList) {
       throw new NotFoundException('errors.studentNotFound');
@@ -85,7 +87,7 @@ export class StudentsListService {
   async update(
     id: string,
     updateStudentsListInput: StudentsListUpdateInput,
-    currentUser: CurrentUser
+    currentUser: CurrentUser,
   ) {
     const studentsList = await this.findOne(id, currentUser);
     if (!currentUser.ability.can(AbilityAction.Update, studentsList)) {
