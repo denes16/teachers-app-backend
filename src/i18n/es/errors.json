@@ -4,6 +4,7 @@
   "userNotFound": "Usuario no encontrado",
   "internalServerError": "Error interno del servidor",
   "studentNotFound": "Estudiante no encontrado",
+  "studentsListNotFound": "Lista de estudiantes no encontrada",
   "forbidden": "No tienes permiso para acceder a este recurso",
   "403": "No tienes permiso para acceder a este recurso"
 }

@@ -73,7 +73,7 @@ export class StudentsListService {
       }
     });
     if (!studentsList) {
-      throw new NotFoundException('errors.studentNotFound');
+      throw new NotFoundException('errors.studentsListNotFound');
     }
     if (!currentUser.ability.can(AbilityAction.Read, studentsList)) {
       console.log('Forbidden to find one');
