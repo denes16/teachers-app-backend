@@ -22,7 +22,7 @@ export class StudentsListService {
     createOneStudentsListArgs: CreateOneStudentsListArgs,
     currentUser: CurrentUser,
   ) {
-    let studentsList = new StudentsList();
+    const studentsList = new StudentsList();
     Object.assign(studentsList, createOneStudentsListArgs.data);
     studentsList.modelName = 'StudentsList';
     studentsList.students = await this.prismaService.student.findMany({
@@ -31,7 +31,10 @@ export class StudentsListService {
         AND: [accessibleBy(currentUser?.ability).Student],
       },
     });
-    if (studentsList.students.length !== createOneStudentsListArgs.data.studentIds.length) {
+    if (
+      studentsList.students.length !==
+      createOneStudentsListArgs.data.studentIds.length
+    ) {
       throw new ForbiddenException();
     }
     if (!currentUser.ability.can(AbilityAction.Create, studentsList)) {
@@ -77,7 +80,7 @@ export class StudentsListService {
     }
     if (!currentUser.ability.can(AbilityAction.Read, studentsList)) {
       console.log('Forbidden to find one');
-      throw new ForbiddenException('errors.forbidden');
+      throw new ForbiddenException();
     }
     return studentsList;
   }
@@ -90,7 +93,7 @@ export class StudentsListService {
     const studentsList = await this.findOne(id, currentUser);
     if (!currentUser.ability.can(AbilityAction.Update, studentsList)) {
       console.log('Forbidden to update');
-      throw new ForbiddenException('errors.forbidden');
+      throw new ForbiddenException();
     }
     return await this.prismaService.studentsList.update({
       where: { id },
@@ -101,21 +104,41 @@ export class StudentsListService {
   async remove(id: string, currentUser: CurrentUser): Promise<StudentsList> {
     const studentsList = await this.findOne(id, currentUser);
     if (!currentUser.ability.can(AbilityAction.Delete, studentsList)) {
-      throw new ForbiddenException('errors.forbidden');
+      throw new ForbiddenException();
     }
     return await this.prismaService.studentsList.delete({
       where: { id },
     });
   }
 
-  async getStudents(studentsList: StudentsList) {
-    return await this.prismaService.studentsList
+  async getStudents(studentsList: StudentsList, currentUser: CurrentUser) {
+    const students = await this.prismaService.studentsList
       .findUnique({
         where: {
           id: studentsList.id,
         },
       })
       .students();
+    if (
+      students.some(
+        (student) => !currentUser.ability.can(AbilityAction.Read, student),
+      )
+    ) {
+      throw new ForbiddenException();
+    }
+    return students;
   }
-
+  async getOwner(studentsList: StudentsList, currentUser: CurrentUser) {
+    const owner = await this.prismaService.studentsList
+      .findUnique({
+        where: {
+          id: studentsList.id,
+        },
+      })
+      .user();
+    if (!currentUser.ability.can(AbilityAction.Read, owner)) {
+      throw new ForbiddenException();
+    }
+    return owner;
+  }
 }
