@@ -2,11 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type UserCount {
-  student: Int!
-  studentsList: Int!
-}
-
 type User {
   id: ID!
   firstName: String!
@@ -33,27 +28,6 @@ type ForgotPasswordResponse {
   email: String
 }
 
-type StudentsListCount {
-  students: Int!
-}
-
-type StudentsList {
-  id: ID!
-  name: String!
-  comments: String
-  studentIds: [String!]
-  students: [Student!]
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  user: User!
-  userId: String!
-  _count: StudentsListCount!
-}
-
-type StudentCount {
-  studentsLists: Int!
-}
-
 type Student {
   id: ID!
   firstName: String!
@@ -71,8 +45,6 @@ type Student {
   user: User!
   userId: String!
   studentsListIds: [String!]
-  studentsLists: [StudentsList!]
-  _count: StudentCount!
 }
 
 enum Genre {
@@ -86,6 +58,18 @@ type GetManyStudentsResponse {
   totalPages: Int!
   pageSize: Int!
   items: [Student!]!
+}
+
+type StudentsList {
+  id: ID!
+  name: String!
+  comments: String
+  studentIds: [String!]
+  students: [Student!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User!
+  userId: String!
 }
 
 type GetManyStudentsListResponse {
@@ -125,7 +109,6 @@ input StudentWhereInput {
   user: UserRelationFilter
   userId: StringFilter
   studentsListIds: StringNullableListFilter
-  studentsLists: StudentsListListRelationFilter
 }
 
 input StringFilter {
@@ -291,33 +274,6 @@ input StringNullableListFilter {
   isEmpty: Boolean
 }
 
-input StudentsListListRelationFilter {
-  every: StudentsListWhereInput
-  some: StudentsListWhereInput
-  none: StudentsListWhereInput
-}
-
-input StudentsListWhereInput {
-  AND: [StudentsListWhereInput!]
-  OR: [StudentsListWhereInput!]
-  NOT: [StudentsListWhereInput!]
-  id: StringFilter
-  name: StringFilter
-  comments: StringNullableFilter
-  studentIds: StringNullableListFilter
-  students: StudentListRelationFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-  user: UserRelationFilter
-  userId: StringFilter
-}
-
-input StudentListRelationFilter {
-  every: StudentWhereInput
-  some: StudentWhereInput
-  none: StudentWhereInput
-}
-
 input StudentOrderByWithRelationInput {
   id: SortOrder
   firstName: SortOrder
@@ -335,7 +291,6 @@ input StudentOrderByWithRelationInput {
   user: UserOrderByWithRelationInput
   userId: SortOrder
   studentsListIds: SortOrder
-  studentsLists: StudentsListOrderByRelationAggregateInput
 }
 
 enum SortOrder {
@@ -351,10 +306,6 @@ input UserOrderByWithRelationInput {
   createdAt: SortOrder
   updatedAt: SortOrder
   isActive: SortOrder
-}
-
-input StudentsListOrderByRelationAggregateInput {
-  _count: SortOrder
 }
 
 input StudentWhereUniqueInput {
@@ -378,6 +329,27 @@ enum StudentScalarFieldEnum {
   userId
   studentsListIds
   modelName
+}
+
+input StudentsListWhereInput {
+  AND: [StudentsListWhereInput!]
+  OR: [StudentsListWhereInput!]
+  NOT: [StudentsListWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  comments: StringNullableFilter
+  studentIds: StringNullableListFilter
+  students: StudentListRelationFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+input StudentListRelationFilter {
+  every: StudentWhereInput
+  some: StudentWhereInput
+  none: StudentWhereInput
 }
 
 input StudentsListOrderByWithRelationInput {
@@ -473,53 +445,6 @@ input StudentUncheckedCreateInput {
   updatedAt: DateTime
   userId: String!
   studentsListIds: [String!]
-  studentsLists: StudentsListUncheckedCreateNestedManyWithoutStudentsInput
-}
-
-input StudentsListUncheckedCreateNestedManyWithoutStudentsInput {
-  create: [StudentsListCreateWithoutStudentsInput!]
-  connectOrCreate: [StudentsListCreateOrConnectWithoutStudentsInput!]
-  connect: [StudentsListWhereUniqueInput!]
-}
-
-input StudentsListCreateWithoutStudentsInput {
-  id: String
-  name: String!
-  comments: String
-  studentIds: [String!]
-  createdAt: DateTime
-  updatedAt: DateTime
-  user: UserCreateNestedOneWithoutStudentsListInput!
-}
-
-input UserCreateNestedOneWithoutStudentsListInput {
-  create: UserCreateWithoutStudentsListInput
-  connectOrCreate: UserCreateOrConnectWithoutStudentsListInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreateWithoutStudentsListInput {
-  firstName: String!
-  lastName: String!
-  email: String!
-  language: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  isActive: Boolean
-}
-
-input UserCreateOrConnectWithoutStudentsListInput {
-  where: UserWhereUniqueInput!
-  create: UserCreateWithoutStudentsListInput!
-}
-
-input UserWhereUniqueInput {
-  email: String
-}
-
-input StudentsListCreateOrConnectWithoutStudentsInput {
-  where: StudentsListWhereUniqueInput!
-  create: StudentsListCreateWithoutStudentsInput!
 }
 
 input StudentUpdateInput {
@@ -591,6 +516,10 @@ input UserCreateWithoutStudentInput {
 input UserCreateOrConnectWithoutStudentInput {
   where: UserWhereUniqueInput!
   create: UserCreateWithoutStudentInput!
+}
+
+input UserWhereUniqueInput {
+  email: String
 }
 
 input StudentCreateOrConnectWithoutStudentsListsInput {

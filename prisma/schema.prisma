@@ -10,6 +10,11 @@ generator nestgraphql {
   output                      = "../src/@generated"
   useInputType_CreateOne_data = "matcher:*UncheckedCreateInput"
   noAtomicOperations          = true
+  decorate_1_type = "!(*Aggregate*)"
+  decorate_1_field = "_count"
+  decorate_1_name = "HideField"
+  decorate_1_from = "@nestjs/graphql"
+  decorate_1_arguments = "[]"
 }
 
 datasource db {
@@ -79,7 +84,8 @@ model Student {
   /// @HideField({ match: '*UpdateInput' })
   userId String @db.ObjectId
   studentsListIds String[] @db.ObjectId
-  /// @HideField({ match: '*UpdateInput' })
+  // @HideField({ match: '*UpdateInput' })
+  /// @HideField({ output: true, input: true })
   studentsLists StudentsList[] @relation(fields: [studentsListIds], references: [id])
   /// @HideField({ output: true, input: true })
   modelName      String        @default("Student")

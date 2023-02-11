@@ -51,7 +51,7 @@ export class UserOrderByWithAggregationInput {
     @HideField()
     authProviderId?: keyof typeof SortOrder;
 
-    @Field(() => UserCountOrderByAggregateInput, {nullable:true})
+    @HideField()
     _count?: UserCountOrderByAggregateInput;
 
     @Field(() => UserMaxOrderByAggregateInput, {nullable:true})

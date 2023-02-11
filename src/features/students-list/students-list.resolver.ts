@@ -1,4 +1,13 @@
-import { Resolver, Query, Mutation, Args, Int, ID, ResolveField, Parent } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ID,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { StudentsListService } from './students-list.service';
 import { StudentsListUpdateInput } from './../../@generated/students-list/students-list-update.input';
 import { FindManyStudentsListArgs } from '../../@generated/students-list/find-many-students-list.args';
@@ -15,16 +24,19 @@ import { Student } from '../../@generated/student/student.model';
 export class StudentsListResolver {
   constructor(private readonly studentsListService: StudentsListService) {}
 
-  @NeedsPermission(AbilityAction.Create, "StudentsList")
+  @NeedsPermission(AbilityAction.Create, 'StudentsList')
   @Mutation(() => StudentsList)
   createStudentsList(
     @Args() createOneStudentsListArgs: CreateOneStudentsListArgs,
     @GetCurrentUser() currentUser: CurrentUser,
-    ) {
-    return this.studentsListService.create(createOneStudentsListArgs, currentUser);
+  ) {
+    return this.studentsListService.create(
+      createOneStudentsListArgs,
+      currentUser,
+    );
   }
 
-  @NeedsPermission(AbilityAction.Read, "StudentsList")
+  @NeedsPermission(AbilityAction.Read, 'StudentsList')
   @Query(() => GetManyStudentsListResponse, { name: 'studentsListAll' })
   findAll(
     @Args()
@@ -34,7 +46,7 @@ export class StudentsListResolver {
     return this.studentsListService.findAll(options, currentUser);
   }
 
-  @NeedsPermission(AbilityAction.Read, "StudentsList")
+  @NeedsPermission(AbilityAction.Read, 'StudentsList')
   @Query(() => StudentsList, { name: 'studentsList' })
   findOne(
     @Args('id', { type: () => ID }) id: string,
@@ -43,17 +55,22 @@ export class StudentsListResolver {
     return this.studentsListService.findOne(id, currentUser);
   }
 
-  @NeedsPermission(AbilityAction.Update, "StudentsList")
+  @NeedsPermission(AbilityAction.Update, 'StudentsList')
   @Mutation(() => StudentsList)
   updateStudentsList(
     @Args('id', { type: () => ID }) id: string,
-    @Args('updateStudentsListInput') updateStudentsListInput: StudentsListUpdateInput,
-    @GetCurrentUser() currentUser: CurrentUser
+    @Args('updateStudentsListInput')
+    updateStudentsListInput: StudentsListUpdateInput,
+    @GetCurrentUser() currentUser: CurrentUser,
   ) {
-    return this.studentsListService.update(id, updateStudentsListInput, currentUser);
+    return this.studentsListService.update(
+      id,
+      updateStudentsListInput,
+      currentUser,
+    );
   }
 
-  @NeedsPermission(AbilityAction.Delete, "StudentsList")
+  @NeedsPermission(AbilityAction.Delete, 'StudentsList')
   @Mutation(() => StudentsList)
   removeStudentsList(
     @Args('id', { type: () => ID }) id: string,
@@ -63,7 +80,17 @@ export class StudentsListResolver {
   }
 
   @ResolveField()
-  students(@Parent() studentList: StudentsList) {
-    return this.studentsListService.getStudents(studentList);
+  students(
+    @Parent() studentList: StudentsList,
+    @GetCurrentUser() currentUser: CurrentUser,
+  ) {
+    return this.studentsListService.getStudents(studentList, currentUser);
+  }
+  @ResolveField()
+  user(
+    @Parent() studentList: StudentsList,
+    @GetCurrentUser() currentUser: CurrentUser,
+  ) {
+    return this.studentsListService.getOwner(studentList, currentUser);
   }
 }
