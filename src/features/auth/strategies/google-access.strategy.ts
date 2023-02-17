@@ -10,7 +10,7 @@ import { PrismaService } from '../../../core/services/prisma/prisma.service';
 import fetch from 'node-fetch';
 
 @Injectable()
-export class GoogleAccessTokenStrategy extends PassportStrategy(
+export class GoogleAccessStrategy extends PassportStrategy(
   Strategy,
   'google-token',
 ) {
