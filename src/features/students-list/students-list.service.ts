@@ -146,6 +146,10 @@ export class StudentsListService {
     currentUser: CurrentUser,
   ): Promise<StudentsList> {
     const studentsList = await this.findOne(id, currentUser);
-    return this.create({ data: { ...studentsList } }, currentUser);
+    delete studentsList.id;
+    studentsList.name = `${studentsList.name} (copy)`;
+    return await this.prismaService.studentsList.create({
+      data: studentsList,
+    });
   }
 }

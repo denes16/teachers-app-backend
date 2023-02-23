@@ -472,5 +472,32 @@
       "bearer": "{{accessToken}}"
     },
     "tests": []
+  },
+  {
+    "_id": "ac4f9461-564a-4efe-aea1-a6ca8621199b",
+    "colId": "8eea2ee9-042d-4e7d-83de-9f0c371220c0",
+    "containerId": "11fdd0aa-e5ae-412a-9a2d-49e8c443a684",
+    "name": "Duplicate",
+    "url": "{{graphqlUrl}}",
+    "method": "POST",
+    "sortNum": 145000,
+    "created": "2023-02-23T04:16:02.134Z",
+    "modified": "2023-02-23T04:18:25.427Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "graphql",
+      "raw": "",
+      "form": [],
+      "graphql": {
+        "query": "mutation DuplicateStudentsList($duplicateStudentsListId: ID!) {\r\n  duplicateStudentsList(id: $duplicateStudentsListId) {\r\n    name\r\n    studentIds\r\n    user {\r\n      id\r\n    }\r\n    comments\r\n    students {\r\n      firstName\r\n    }\r\n  }\r\n}\r\n",
+        "variables": "{\r\n  \"duplicateStudentsListId\": \"63e8635315ffc981450910f4\"\r\n}"
+      }
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{accessToken}}"
+    },
+    "tests": []
   }
 ]
