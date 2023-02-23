@@ -141,4 +141,11 @@ export class StudentsListService {
     }
     return owner;
   }
+  async duplicate(
+    id: string,
+    currentUser: CurrentUser,
+  ): Promise<StudentsList> {
+    const studentsList = await this.findOne(id, currentUser);
+    return this.create({ data: { ...studentsList } }, currentUser);
+  }
 }

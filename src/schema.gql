@@ -397,6 +397,7 @@ type Mutation {
   createStudentsList(data: StudentsListUncheckedCreateInput!): StudentsList!
   updateStudentsList(id: ID!, updateStudentsListInput: StudentsListUpdateInput!): StudentsList!
   removeStudentsList(id: ID!): StudentsList!
+  duplicateStudentsList(id: ID!): StudentsList!
 }
 
 input UpdateUserInput {

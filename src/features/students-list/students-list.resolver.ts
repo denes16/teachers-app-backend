@@ -79,6 +79,15 @@ export class StudentsListResolver {
     return this.studentsListService.remove(id, currentUser);
   }
 
+  @NeedsPermission(AbilityAction.Update, 'StudentsList')
+  @Mutation(() => StudentsList)
+  duplicateStudentsList(
+    @Args('id', { type: () => ID }) id: string,
+    @GetCurrentUser() currentUser: CurrentUser,
+  ) {
+    return this.studentsListService.duplicate(id, currentUser);
+  }
+
   @ResolveField()
   students(
     @Parent() studentList: StudentsList,
