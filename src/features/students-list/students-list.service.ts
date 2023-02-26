@@ -120,7 +120,7 @@ export class StudentsListService {
       })
       .students();
     if (
-      students.some(
+      (students || []).some(
         (student) => !currentUser.ability.can(AbilityAction.Read, student),
       )
     ) {
