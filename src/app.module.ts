@@ -26,15 +26,19 @@ import { StudentsListModule } from './features/students-list/students-list.modul
     AuthModule,
     StudentModule,
     StudentsListModule,
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
+      inject: [ConfigService],
+      imports: [ConfigModule],
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      playground: false,
-      plugins:
-        process.env.NODE_ENV === 'development'
-          ? [ApolloServerPluginLandingPageLocalDefault()]
-          : [],
-      introspection: process.env.NODE_ENV === 'development',
+      useFactory: (config: ConfigService) => ({
+        autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+        playground: false,
+        plugins:
+          config.get('NODE_ENV') === 'development'
+            ? [ApolloServerPluginLandingPageLocalDefault()]
+            : [],
+        introspection: config.get('NODE_ENV') === 'development',
+      }),
     }),
     I18nModule.forRoot({
       fallbackLanguage: 'en',

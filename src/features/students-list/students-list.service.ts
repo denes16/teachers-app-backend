@@ -120,7 +120,7 @@ export class StudentsListService {
       })
       .students();
     if (
-      students.some(
+      (students || []).some(
         (student) => !currentUser.ability.can(AbilityAction.Read, student),
       )
     ) {
@@ -140,5 +140,16 @@ export class StudentsListService {
       throw new ForbiddenException();
     }
     return owner;
+  }
+  async duplicate(
+    id: string,
+    currentUser: CurrentUser,
+  ): Promise<StudentsList> {
+    const studentsList = await this.findOne(id, currentUser);
+    delete studentsList.id;
+    studentsList.name = `${studentsList.name} (copy)`;
+    return await this.prismaService.studentsList.create({
+      data: studentsList,
+    });
   }
 }
